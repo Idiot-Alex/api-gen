@@ -1,0 +1,29 @@
+Arguments: 
+  /Users/zhangxin/.nvm/versions/node/v16.14.0/bin/node /usr/local/Cellar/yarn/1.22.19/libexec/bin/yarn.js add playwright
+
+PATH: 
+  /usr/local/opt/php@7.4/sbin:/usr/local/opt/php@7.4/bin:/Users/zhangxin/dev_env/apache-maven-3.8.1/bin:/Users/zhangxin/.nvm/versions/node/v16.14.0/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/go/bin:/opt/X11/bin:/Applications/Wireshark.app/Contents/MacOS:/usr/local/opt/php@7.4/sbin:/usr/local/opt/php@7.4/bin:/Users/zhangxin/dev_env/apache-maven-3.8.1/bin:/Users/zhangxin/.cargo/bin:/Users/zhangxin/.rvm/bin:/Users/zhangxin/.rvm/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.14.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.npmjs.org/playwright: ETIMEDOUT
+      at Timeout._onTimeout (/usr/local/Cellar/yarn/1.22.19/libexec/lib/cli.js:141550:19)
+      at listOnTimeout (node:internal/timers:559:17)
+      at processTimers (node:internal/timers:502:7)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

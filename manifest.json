@@ -1,0 +1,46 @@
+{
+  "name": "api-gen",
+  "version": "1.0",
+  "description": "Build an Extension!",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "ajaxhook.2.1.3.min.js", 
+        "content-script.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "images/16.png",
+      "24": "images/16.png",
+      "32": "images/16.png"
+    },
+    "default_title": "Click to view a popup",
+    "default_popup": "popup.html"
+  },
+  "devtools_page": "devtools.html",
+  "host_permissions": [
+    "http://*/*", "https://*/*",
+    "<all_urls>"
+  ],
+  "permissions": [
+    "webRequest",
+    "tabs"
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": ["<all_urls>"],
+      "resources": ["src/assets/images/*"]
+    }
+  ],
+  "optional_permissions": ["downloads"],
+  "icons": { "16": "images/16.png", "128": "images/128.png" },
+  "minimum_chrome_version": "28"
+}

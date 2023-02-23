@@ -1,0 +1,22 @@
+{
+  "name": "api-gen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ajaxhook.2.1.3.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Idiot-Alex/api-gen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Idiot-Alex/api-gen/issues"
+  },
+  "homepage": "https://github.com/Idiot-Alex/api-gen#readme",
+  "dependencies": {
+    "chrome-remote-interface": "^0.32.1"
+  }
+}
