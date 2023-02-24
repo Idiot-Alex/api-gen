@@ -23,11 +23,10 @@
   },
   "homepage": "https://github.com/Idiot-Alex/api-gen#readme",
   "dependencies": {
-    "chrome-remote-interface": "^0.32.1",
-    "nuxt": "^3.2.2"
+    "nuxt": "^3.2.2",
+    "playwright": "^1.31.1"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^0.2.0",
-    "nuxt": "^3.2.2"
+    "@nuxt/devtools": "^0.2.0"
   }
 }
