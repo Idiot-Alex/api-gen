@@ -20,7 +20,7 @@ const cdp = async () => {
   
   const page = await browser.newPage();
   
-  page.on("request", (request) => console.log(">>", request.method(), request.url()))
+  page.on("request", (request) => console.log(">>", request.method(), request.url(), request.headers()))
   page.on("response", (response) => console.log("<<", response.status(), response.url()))
   
   await page.goto("https://www.google.com/")
@@ -29,5 +29,5 @@ const cdp = async () => {
 
 (async() => {
   await app()
-  // await cdp()
+  await cdp()
 })()

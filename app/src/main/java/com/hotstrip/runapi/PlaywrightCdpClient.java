@@ -6,46 +6,28 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Collections;
+import java.util.concurrent.Executors;
 
 @Slf4j
 @Component
 public class PlaywrightCdpClient implements InitializingBean, DisposableBean {
 
+    @Resource
     private Playwright playwright;
+    private Page page;
 
-    public Page connect() {
+    public Browser connect() {
         Browser browserCdp = playwright.chromium()
-                .connectOverCDP("http://localhost:9222/");
-//        Page page = browserCdp.newPage();
+                .connectOverCDP("http://127.0.0.1:9222");
 
-        new Thread(() -> {
-            try {
-                Thread.sleep(500);
-                log.info("........");
-                browserCdp.contexts().forEach(browserContext -> {
-                    browserContext.pages().forEach(page -> {
-                        page.onRequest(request -> log.info(">> " + request.method() + " " + request.url()));
-                        page.onResponse(response -> log.info("<<" + response.status() + " " + response.url()));
-                    });
-                });
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-        }).start();
-
-        BrowserContext defaultContext = browserCdp.contexts().get(0);
-        Page page = defaultContext.pages().get(0);
-
-
-        page.navigate("https://chengchaos.github.io/");
-        return page;
+        return browserCdp;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        playwright = Playwright.create();
+//        playwright = Playwright.create();
     }
 
     @Override

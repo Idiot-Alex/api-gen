@@ -9,11 +9,13 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 
 @Slf4j
 @Component
 public class PlaywrightServer implements InitializingBean, DisposableBean {
+    @Resource
     private Playwright playwright;
 
     public void run() {
@@ -21,17 +23,11 @@ public class PlaywrightServer implements InitializingBean, DisposableBean {
                 .setHeadless(false)
                 .setArgs(Collections.singletonList("--remote-debugging-port=9222"));
         Browser browser = playwright.chromium().launch(options);
-        Page page = browser.newPage();
-
-        page.onRequest(request -> log.info(">> " + request.method() + " " + request.url()));
-        page.onResponse(response -> log.info("<<" + response.status() + " " + response.url()));
-
-        page.navigate("https://chengchaos.github.io/");
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        playwright = Playwright.create();
+//        playwright = Playwright.create();
     }
 
     @Override
