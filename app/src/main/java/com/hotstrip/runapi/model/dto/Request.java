@@ -1,4 +1,4 @@
-package com.hotstrip.runapi.model;
+package com.hotstrip.runapi.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,15 +7,14 @@ import lombok.ToString;
 
 import java.util.HashMap;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
-public class Response {
+public class Request {
+    private String resourceType;
     private HashMap<String, String> headers;
-    private String text;
-    private Integer status;
-    private String statusText;
-
+    private String postData;
+    private Boolean failed;
+    private String errorText;
 }
