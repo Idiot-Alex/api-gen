@@ -1,0 +1,17 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "playwright.js",
+  "bin": {
+    "my-node-app": "playwright.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hotstrip",
+  "license": "ISC",
+  "dependencies": {
+    "playwright": "^1.31.1"
+  }
+}
