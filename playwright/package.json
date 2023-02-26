@@ -2,7 +2,7 @@
   "name": "playwright",
   "version": "1.0.0",
   "description": "",
-  "main": "playwright.js",
+  "type": "module",
   "bin": {
     "my-node-app": "playwright.js"
   },

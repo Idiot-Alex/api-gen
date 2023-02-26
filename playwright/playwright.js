@@ -1,15 +1,7 @@
 // const http = require("http");
 
-const { chromium } = require("playwright");
-const axios = require("axios")
-
-// const instance = axios({
-//   baseURL: 'http://127.0.0.1:8080',
-//   timeout: 3000,
-//   headers: {
-//     'Content-type': 'application/json;charset=UTF-8'
-//   }
-// });
+import { chromium } from "playwright";
+import { upload } from './api/api.js'
 
 const app = async() => {
   const browser = await chromium.launch({
@@ -17,6 +9,8 @@ const app = async() => {
     headless: false,
   });
 }
+
+
 
 const cdp = async () => {
   const browser = await chromium.connectOverCDP('http://127.0.0.1:9222/');
@@ -49,7 +43,7 @@ const cdp = async () => {
             statusText: response.statusText()
           }
         }
-        axios.post('http://127.0.0.1:8080/api/upload', data).then((res) => {
+        upload(data).then((res) => {
           console.log(res)
         })
       })
@@ -90,7 +84,7 @@ const cdp = async () => {
             statusText: response.statusText()
           }
         }
-        axios.post('http://127.0.0.1:8080/api/upload', data).then((res) => {
+        upload(data).then((res) => {
           console.log(res)
         })
       })
