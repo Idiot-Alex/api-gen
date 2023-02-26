@@ -28,6 +28,9 @@ const cdp = async () => {
     browserContext.pages().forEach(page => {
       page.on('requestfailed', async(request) => {
         const response = await request.response()
+        if (!response) {
+          return;
+        }
     
         const data = {
           url: request.url(),
@@ -52,7 +55,23 @@ const cdp = async () => {
       })
       page.on('requestfinished', async(request) => {
         const response = await request.response()
-        // const text = await response.body()
+        let text = ''
+
+        if (response.status() !== 302) {
+          const contentType = response.headers()['content-type'];
+          console.log(contentType)
+          if (contentType && (contentType.includes('text/') || contentType === 'application/json')) {
+            if (response.ok()) {
+              try {
+                text = await response.text();
+              } catch (error) {
+                console.log('error: ', error)
+              }
+              console.log(text);  
+            }
+          }
+        }
+
         // console.log(text)
     
         const data = {
@@ -60,13 +79,13 @@ const cdp = async () => {
           method: request.method(),
           request: {
             resourceType: request.resourceType(),
-            // headers: request.allHeaders(),
+            headers: request.headers(),
             postData: request.postData(),
             failed: false
           },
           response: {
-            // headers: response.allHeaders(),
-            // text: text,
+            headers: response.headers(),
+            text: text,
             status: response.status(),
             statusText: response.statusText()
           }
