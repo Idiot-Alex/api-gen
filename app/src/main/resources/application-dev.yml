@@ -5,3 +5,7 @@ spring:
       driver-class-name: org.h2.Driver
       username: sa
       password:
+
+snowflake:
+  workerId: 1
+  datacenterId: 1
