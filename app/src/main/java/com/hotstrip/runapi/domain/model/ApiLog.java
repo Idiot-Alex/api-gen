@@ -1,4 +1,4 @@
-package com.hotstrip.runapi.model;
+package com.hotstrip.runapi.domain.model;
 
 public class ApiLog {
     private Long id;

@@ -1,4 +1,4 @@
-package com.hotstrip.runapi.model.dto;
+package com.hotstrip.runapi.domain.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
