@@ -1,8 +1,7 @@
 package com.hotstrip.runapi.model;
 
-import java.util.HashMap;
-
-public class Api {
+public class ApiLog {
+    private Long id;
     private String url;
     private String method;
 
