@@ -7,7 +7,7 @@ create table if not exists `PUBLIC`.`api_log`(
     `request_headers` CLOB null,
     `post_data` CLOB null,
     `failed` varchar(10) null,
-    `errorText` varchar(1024) null,
+    `error_text` varchar(1024) null,
     `response_headers` CLOB null,
     `text` CLOB null,
     `status` int null,
