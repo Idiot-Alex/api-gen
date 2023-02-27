@@ -95,16 +95,18 @@ const cdp = async() => {
 
   browser.contexts().forEach(browserContext => {
     browserContext.on('requestfinished', async(request) => {
-      const response = await request.response()
-      const data = await buildData(request, response)
+      const data = await buildData(request)
       // console.log(">>" + JSON.stringify(data))
-      upload(data)
+      if (data) {
+        upload(data)
+      }
     })
     browserContext.on('requestfailed', async(request) => {
-      const response = await request.response()
-      const data = await buildData(request, response)
+      const data = await buildData(request)
       // console.log("<<" + JSON.stringify(data))
-      upload(data)
+      if (data) {
+        upload(data)
+      }
     })
   })
   
@@ -112,7 +114,12 @@ const cdp = async() => {
 
 }
 
-const buildData = async(request, response) => {
+const buildData = async(request) => {
+  const response = await request.response()
+  if (!response) {
+    return null
+  }
+
   let text = ''
 
   if (response.ok() && response.status() !== 302) {
