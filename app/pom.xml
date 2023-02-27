@@ -8,13 +8,16 @@
         <version>2.7.9</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.hotstrip</groupId>
     <artifactId>runapi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>runapi</name>
     <description>run api</description>
+
     <properties>
         <java.version>8</java.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
     </properties>
 
     <dependencies>
@@ -41,6 +44,23 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
             <version>5.8.11</version>
+        </dependency>
+        <!--MapStruct相关依赖-->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-mapstruct-binding</artifactId>
+            <version>0.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -10,13 +10,9 @@ const app = async() => {
   });
 }
 
-
-
-const cdp = async () => {
+const cdp = async() => {
   const browser = await chromium.connectOverCDP('http://127.0.0.1:9222/');
   
- 
-
   const page = await browser.newPage();
 
 
@@ -98,12 +94,60 @@ const cdp = async () => {
 
 
   browser.contexts().forEach(browserContext => {
-    browserContext.on('request', (request) => console.log(">>", request.method(), request.url()))
+    browserContext.on('requestfinished', async(request) => {
+      const response = await request.response()
+      const data = await buildData(request, response)
+      // console.log(">>" + JSON.stringify(data))
+      upload(data)
+    })
+    browserContext.on('requestfailed', async(request) => {
+      const response = await request.response()
+      const data = await buildData(request, response)
+      // console.log("<<" + JSON.stringify(data))
+      upload(data)
+    })
   })
   
   await page.goto("https://www.google.com/")
 
+}
 
+const buildData = async(request, response) => {
+  let text = ''
+
+  if (response.ok() && response.status() !== 302) {
+    const contentType = response.headers()['content-type'];
+    if (contentType && (contentType.includes('text/') || contentType === 'application/json')) {
+        try {
+          text = await response.text();
+        } catch (error) {
+          console.log('error: ', contentType, error)
+        }
+    }
+  }
+
+  console.log("text: " + text);  
+
+  console.log("url: " + request.url())
+
+  const data = {
+    url: request.url(),
+    method: request.method(),
+    request: {
+      resourceType: request.resourceType(),
+      headers: request.headers(),
+      postData: request.postData(),
+      failed: false
+    },
+    response: {
+      headers: response.headers(),
+      text: text,
+      status: response.status(),
+      statusText: response.statusText()
+    }
+  }
+  // console.log("data: " + JSON.stringify(data))
+  return data
 }
 
 (async() => {
