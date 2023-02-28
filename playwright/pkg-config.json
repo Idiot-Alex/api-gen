@@ -1,0 +1,13 @@
+{
+  "name": "app-pkg",
+  "version": "1.0.0",
+  "description": "My awesome app",
+  "entry": "dist/index.js",
+  "targets": [
+    "node16-linux-x64",
+    "node16-macos-x64",
+    "node16-win-x64"
+  ],
+  "es6": true,
+  "scripts": "dist/**/*.js"
+}

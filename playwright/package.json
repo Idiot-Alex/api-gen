@@ -2,13 +2,10 @@
   "name": "playwright",
   "version": "1.0.0",
   "description": "",
-  "bin": {
-    "my-node-app": "playwright.js"
-  },
   "scripts": {
-    "pkg-compile": "npx babel src --out-dir dist",
-    "pkg-build": "npm run pkg-compile && pkg dist/playwright.js --output bin/app-pkg --debug",
-    "nexe-build": "nexe --build --python /usr/local/bin/python3 -i dist/playwright.js -o bin/app-nexe --verbose",
+    "es5-compile": "npx babel src --out-dir dist",
+    "pkg-build": "npm run es5-compile && pkg dist/index.js --output bin/app-pkg --debug",
+    "nexe-build": "nexe --build --python /usr/local/bin/python3 -i dist/index.js -o bin/app-nexe --verbose",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Hotstrip",
@@ -20,6 +17,7 @@
   "devDependencies": {
     "@babel/cli": "^7.21.0",
     "@babel/core": "^7.21.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.21.2",
     "@babel/preset-env": "^7.20.2"
   }
 }
