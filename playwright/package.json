@@ -14,7 +14,8 @@
   "author": "Hotstrip",
   "license": "ISC",
   "dependencies": {
-    "playwright": "^1.31.1"
+    "playwright": "^1.31.1",
+    "sweetalert2": "^11.7.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
