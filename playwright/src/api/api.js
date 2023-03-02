@@ -1,10 +1,13 @@
-import axios from './axios-config.js'
 
-export function upload(data) {
-  return axios({
-    url: '/api/upload',
-    method: 'post',
-    timeout: 0,
-    data
+import apiReqCtx from './request-config.js'
+
+/**
+ * upload data
+ * @param {JSON} data 
+ * @returns 
+ */
+export async function upload(data) {
+  return (await apiReqCtx()).post('/api/upload', {
+    data: data
   })
 }

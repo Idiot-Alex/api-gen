@@ -1,5 +1,3 @@
-// const http = require("http");
-
 import { chromium } from "playwright";
 import { upload } from './api/api.js'
 
