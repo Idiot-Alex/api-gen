@@ -18,14 +18,22 @@ const cdp = async() => {
       const data = await buildData(request)
       // console.log(">>" + JSON.stringify(data))
       if (data) {
-        upload(data)
+        upload(data).then(res => {
+          console.log('-----', res)
+        }).catch(err => {
+          console.log('-----', err)
+        })
       }
     })
     browserContext.on('requestfailed', async(request) => {
       const data = await buildData(request)
       // console.log("<<" + JSON.stringify(data))
       if (data) {
-        upload(data)
+        upload(data).then(res => {
+          console.log('-----', res)
+        }).catch(err => {
+          console.log('-----', err)
+        })
       }
     })
   })
