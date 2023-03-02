@@ -7,6 +7,4 @@ const apiReqCtx = async () => {
   });
 }
 
-// const apiReqCtx = await apiRequestContext()
-
 export default apiReqCtx
