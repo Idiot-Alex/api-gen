@@ -1,5 +1,6 @@
-import { chromium } from "playwright";
-import { upload } from './api/api.js'
+import { chromium } from "playwright"
+import { upload } from "./api/api.js"
+import { notifyError } from "./notify.js"
 
 const app = async() => {
   const browser = await chromium.launch({
@@ -22,6 +23,7 @@ const cdp = async() => {
           console.log('-----', res)
         }).catch(err => {
           console.log('-----', err)
+          notifyError(err.message)
         })
       }
     })
@@ -33,6 +35,7 @@ const cdp = async() => {
           console.log('-----', res)
         }).catch(err => {
           console.log('-----', err)
+          notifyError(err.message)
         })
       }
     })
