@@ -17,4 +17,6 @@ public class Request {
     private String postData;
     private Boolean failed;
     private String errorText;
+    private Integer requestBodySize;
+    private Integer requestHeadersSize;
 }

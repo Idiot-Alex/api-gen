@@ -17,5 +17,7 @@ public class Response {
     private String text;
     private Integer status;
     private String statusText;
+    private Integer responseBodySize;
+    private Integer responseHeadersSize;
 
 }

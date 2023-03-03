@@ -1,6 +1,6 @@
 import { chromium } from "playwright"
 import { upload } from "./api/api.js"
-import { notifyError } from "./notify.js"
+import { notifyError, notifyApiResponseError } from "./notify.js"
 
 const app = async() => {
   const browser = await chromium.launch({
@@ -19,11 +19,11 @@ const cdp = async() => {
       const data = await buildData(request)
       // console.log(">>" + JSON.stringify(data))
       if (data) {
-        upload(data).then(res => {
-          console.log('-----', res)
+        upload(data).then(async res => {
+          console.log('-----', await res.text())
         }).catch(err => {
           console.log('-----', err)
-          notifyError(err.message)
+          notifyApiResponseError(err.message)
         })
       }
     })
@@ -35,7 +35,7 @@ const cdp = async() => {
           console.log('-----', res)
         }).catch(err => {
           console.log('-----', err)
-          notifyError(err.message)
+          notifyApiResponseError(err.message)
         })
       }
     })
@@ -51,6 +51,8 @@ const buildData = async(request) => {
     return null
   }
 
+  const size = await request.sizes()
+
   let text = ''
 
   if (response.ok() && response.status() !== 302) {
@@ -60,13 +62,10 @@ const buildData = async(request) => {
           text = await response.text();
         } catch (error) {
           console.log('error: ', contentType, error)
+          notifyError(error.message)
         }
     }
   }
-
-  console.log("text: " + text);  
-
-  console.log("url: " + request.url())
 
   const data = {
     url: request.url(),
@@ -75,16 +74,20 @@ const buildData = async(request) => {
       resourceType: request.resourceType(),
       headers: request.headers(),
       postData: request.postData(),
-      failed: false
+      failed: false,
+      errorText: request.failure()?.errorText,
+      requestBodySize: size.requestBodySize,
+      requestHeadersSize: size.requestHeadersSize
     },
     response: {
       headers: response.headers(),
       text: text,
       status: response.status(),
-      statusText: response.statusText()
+      statusText: response.statusText(),
+      responseBodySize: size.responseBodySize,
+      responseHeadersSize: size.responseHeadersSize
     }
   }
-  // console.log("data: " + JSON.stringify(data))
   return data
 }
 

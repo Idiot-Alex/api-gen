@@ -21,9 +21,13 @@ public interface ApiLogMapstruct {
     @Mapping(source = "request.postData", target = "postData")
     @Mapping(source = "request.failed", target = "failed")
     @Mapping(source = "request.errorText", target = "errorText")
+    @Mapping(source = "request.requestBodySize", target = "requestBodySize")
+    @Mapping(source = "request.requestHeadersSize", target = "requestHeadersSize")
     @Mapping(target = "responseHeaders", expression = "java(JacksonUtil.toJsonString(apiDto.getRequest().getHeaders()))")
     @Mapping(source = "response.text", target = "text")
     @Mapping(source = "response.status", target = "status")
     @Mapping(source = "response.statusText", target = "statusText")
+    @Mapping(source = "response.responseBodySize", target = "responseBodySize")
+    @Mapping(source = "response.responseHeadersSize", target = "responseHeadersSize")
     ApiLog dtoToModel(ApiDto apiDto);
 }

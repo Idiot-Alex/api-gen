@@ -8,8 +8,12 @@ create table if not exists `PUBLIC`.`api_log`(
     `post_data` CLOB null,
     `failed` varchar(10) null,
     `error_text` varchar(1024) null,
+    `request_body_size` int null,
+    `request_headers_size` int null,
     `response_headers` CLOB null,
     `text` CLOB null,
     `status` int null,
-    `status_text` varchar(1024) null
+    `status_text` varchar(1024) null,
+    `response_body_size` int null,
+    `response_headers_size` int null
 );

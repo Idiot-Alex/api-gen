@@ -19,9 +19,13 @@ public class ApiLog {
     private String postData;
     private Boolean failed;
     private String errorText;
+    private Integer requestBodySize;
+    private Integer requestHeadersSize;
 
     private String responseHeaders;
     private String text;
     private Integer status;
     private String statusText;
+    private Integer responseBodySize;
+    private Integer responseHeadersSize;
 }
