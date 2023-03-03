@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * api controller
+ * @author hotstrip
+ * @since 2023-03-03
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api")
