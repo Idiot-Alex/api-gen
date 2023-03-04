@@ -1,17 +1,15 @@
 <script setup>
-import Menu from './Menu.vue'
-import HelloWorld from '../components/HelloWorld.vue'
 </script>
 
 <template>
   <div class="common-layout">
     <el-container>
       <el-aside width="200px">
-        <Menu></Menu>
+        <AsideMenu />
       </el-aside>
       <el-container>
         <el-header>
-          <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="25" height="25" />
+          <TopHeader />
         </el-header>
         <el-main>
           <nav>

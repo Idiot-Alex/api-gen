@@ -8,6 +8,7 @@ specifiers:
   '@vitejs/plugin-vue-jsx': ^3.0.0
   '@vue/eslint-config-prettier': ^7.1.0
   '@vue/test-utils': ^2.3.0
+  '@vueuse/core': ^9.13.0
   element-plus: ^2.2.32
   eslint: ^8.34.0
   eslint-plugin-vue: ^9.9.0
@@ -24,6 +25,7 @@ specifiers:
 
 dependencies:
   '@element-plus/icons-vue': registry.npmmirror.com/@element-plus/icons-vue/2.1.0_vue@3.2.47
+  '@vueuse/core': registry.npmmirror.com/@vueuse/core/9.13.0_vue@3.2.47
   element-plus: registry.npmmirror.com/element-plus/2.2.32_vue@3.2.47
   pinia: 2.0.32_vue@3.2.47
   vue: 3.2.47
@@ -40,7 +42,7 @@ devDependencies:
   eslint-plugin-vue: 9.9.0_eslint@8.34.0
   jsdom: 21.1.0
   prettier: 2.8.4
-  unplugin-auto-import: registry.npmmirror.com/unplugin-auto-import/0.15.0
+  unplugin-auto-import: registry.npmmirror.com/unplugin-auto-import/0.15.0_@vueuse+core@9.13.0
   unplugin-icons: registry.npmmirror.com/unplugin-icons/0.15.3
   unplugin-vue-components: registry.npmmirror.com/unplugin-vue-components/0.24.0_vue@3.2.47
   vite: 4.1.4
@@ -3029,7 +3031,6 @@ packages:
     resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/web-bluetooth/-/web-bluetooth-0.0.16.tgz}
     name: '@types/web-bluetooth'
     version: 0.0.16
-    dev: false
 
   registry.npmmirror.com/@vue/compiler-dom/3.2.47:
     resolution: {integrity: sha512-dBBnEHEPoftUiS03a4ggEig74J2YBZ2UIeyfpcRM2tavgMWo4bsEfgCGsu+uJIL/vax9S+JztH8NmQerUo7shQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vue/compiler-dom/-/compiler-dom-3.2.47.tgz}
@@ -3066,13 +3067,11 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-    dev: false
 
   registry.npmmirror.com/@vueuse/metadata/9.13.0:
     resolution: {integrity: sha512-gdU7TKNAUVlXXLbaF+ZCfte8BjRJQWPCa2J55+7/h+yDtzw3vOoGQDRXzI6pyKyo6bXFT5/QoPE4hAknExjRLQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/metadata/-/metadata-9.13.0.tgz}
     name: '@vueuse/metadata'
     version: 9.13.0
-    dev: false
 
   registry.npmmirror.com/@vueuse/shared/9.13.0_vue@3.2.47:
     resolution: {integrity: sha512-UrnhU+Cnufu4S6JLCPZnkWh0WwZGUp72ktOF2DFptMlOs3TOdVv8xJN53zhHGARmVOsz5KqOls09+J1NR6sBKw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/shared/-/shared-9.13.0.tgz}
@@ -3084,7 +3083,6 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-    dev: false
 
   registry.npmmirror.com/acorn/8.8.2:
     resolution: {integrity: sha512-xjIYgE8HBrkpd/sJqOGNspf8uHG+NOHGOw6a/Urj8taM2EXfdNAH2oFcPeIFfsv3+kz/mJrS5VuMqbNLjCa2vw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/acorn/-/acorn-8.8.2.tgz}
@@ -4456,8 +4454,9 @@ packages:
       - rollup
     dev: true
 
-  registry.npmmirror.com/unplugin-auto-import/0.15.0:
+  registry.npmmirror.com/unplugin-auto-import/0.15.0_@vueuse+core@9.13.0:
     resolution: {integrity: sha512-TYlqpTiX1jlbc2+EVaM0jfwdvbIdDWLHAPqw/l+7+QRm9rkqK2j8LQGjY3tAPbe66r5EirgTlrrXQG/MNVTv7w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin-auto-import/-/unplugin-auto-import-0.15.0.tgz}
+    id: registry.npmmirror.com/unplugin-auto-import/0.15.0
     name: unplugin-auto-import
     version: 0.15.0
     engines: {node: '>=14'}
@@ -4470,6 +4469,7 @@ packages:
       '@antfu/utils': registry.npmmirror.com/@antfu/utils/0.7.2
       '@nuxt/kit': registry.npmmirror.com/@nuxt/kit/3.2.3
       '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2
+      '@vueuse/core': registry.npmmirror.com/@vueuse/core/9.13.0_vue@3.2.47
       local-pkg: registry.npmmirror.com/local-pkg/0.4.3
       magic-string: registry.npmmirror.com/magic-string/0.30.0
       minimatch: registry.npmmirror.com/minimatch/7.4.2
@@ -4600,7 +4600,6 @@ packages:
         optional: true
     dependencies:
       vue: 3.2.47
-    dev: false
 
   registry.npmmirror.com/webpack-sources/3.2.3:
     resolution: {integrity: sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/webpack-sources/-/webpack-sources-3.2.3.tgz}

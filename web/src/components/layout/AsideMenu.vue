@@ -1,17 +1,24 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { useStorage } from '@vueuse/core'
+import { computed, ref } from 'vue'
+import { useCollapseState, useToggleCollapseState } from '../../stores/app';
 
-const isCollapse = ref(true)
+
+const collapseState = useCollapseState()
+const toggleCollapseState = () => useToggleCollapseState()
+
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
+  toggleCollapseState()
 }
 const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
+  toggleCollapseState()
 }
 </script>
 
 <template>
-  <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
+  <el-radio-group v-model="collapseState" style="margin-bottom: 20px">
     <el-radio-button :label="false">expand</el-radio-button>
     <el-radio-button :label="true">collapse</el-radio-button>
   </el-radio-group>
