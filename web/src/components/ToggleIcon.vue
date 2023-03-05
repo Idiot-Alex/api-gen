@@ -1,12 +1,17 @@
 <script setup>
-import { useStorage, useToggle } from '@vueuse/core'
 import { useCollapseState, useToggleCollapseState } from '@/stores/app.js'
+
+const collapseState = useCollapseState()
+
+const toggleMenu = () => {
+  useToggleCollapseState(collapseState)
+}
 
 </script>
 
 <template>
   <div class="container">  
-    <input class="label-check" id="label-check" type="checkbox" @change="useToggleCollapseState()">
+    <input class="label-check" id="label-check" type="checkbox" @change="toggleMenu()">
     <label for="label-check" class="hamburger-label">
       <div class="line1"></div>
       <div class="line2"></div>

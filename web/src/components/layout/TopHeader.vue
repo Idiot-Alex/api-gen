@@ -7,7 +7,6 @@ const isDark = useDark()
 
 <template>
   <div>
-    <ToggleIcon />
     <el-switch
       v-model="isDark"
       class="mt-2"
