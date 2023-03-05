@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api-log")
+@RequestMapping("/w/api-log")
 public class ApiLogController {
 
     @Resource
