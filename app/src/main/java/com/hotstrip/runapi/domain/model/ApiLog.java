@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -28,4 +30,6 @@ public class ApiLog {
     private String statusText;
     private Integer responseBodySize;
     private Integer responseHeadersSize;
+
+    private Date createTime;
 }

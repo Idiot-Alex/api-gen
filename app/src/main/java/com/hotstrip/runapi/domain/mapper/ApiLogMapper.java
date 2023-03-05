@@ -8,6 +8,6 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface ApiLogMapper extends BaseMapper<ApiLog> {
-    @Select({" select * FROM PUBLIC.api_log "})
+    @Select({" select * FROM PUBLIC.api_log order by create_time desc"})
     Page<ApiLog> listPage(Page page, ApiLog info);
 }

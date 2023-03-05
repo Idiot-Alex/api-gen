@@ -15,5 +15,6 @@ create table if not exists `PUBLIC`.`api_log`(
     `status` int null,
     `status_text` varchar(1024) null,
     `response_body_size` int null,
-    `response_headers_size` int null
+    `response_headers_size` int null,
+    `create_time` timestamp null,
 );
