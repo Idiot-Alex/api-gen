@@ -7,12 +7,14 @@ import com.hotstrip.runapi.domain.model.dto.ApiDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.Date;
+
 /**
  * use spring control
  * @author hotstrip
  * @since 2022-12-31
  */
-@Mapper(componentModel = "spring", imports = {IdUtil.class, JacksonUtil.class})
+@Mapper(componentModel = "spring", imports = {IdUtil.class, JacksonUtil.class, Date.class})
 public interface ApiLogMapstruct {
 
     @Mapping(target = "id", expression = "java(IdUtil.getSnowflake().nextId())")
@@ -29,5 +31,6 @@ public interface ApiLogMapstruct {
     @Mapping(source = "response.statusText", target = "statusText")
     @Mapping(source = "response.responseBodySize", target = "responseBodySize")
     @Mapping(source = "response.responseHeadersSize", target = "responseHeadersSize")
+    @Mapping(target = "createTime", expression = "java(new Date())")
     ApiLog dtoToModel(ApiDto apiDto);
 }
