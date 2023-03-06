@@ -51,6 +51,7 @@ onMounted(() => {
       </el-table-column> -->
     </el-table>
     <el-pagination
+      class="pagination"
       v-model:current-page="tableParams.pageNo"
       v-model:page-size="tableParams.pageSize"
       :page-sizes="[20, 100, 200]"
@@ -63,4 +64,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.pagination {
+  margin-top: 20px;
+}
 </style>
