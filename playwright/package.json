@@ -6,7 +6,7 @@
   "scripts": {
     "compile-es5": "rimraf dist && npx babel src --out-dir dist",
     "build-pkg": "npm run compile-es5 && pkg --public-packages '*' dist/index.js --public --output bin/app-pkg --debug",
-    "build-nexe": "nexe --build --python /usr/local/bin/python3 -i src/index.js -o app-nexe --verbose",
+    "build-nexe": "nexe --python /usr/local/bin/python3 -i src/index.js -r ./src -r ./node_modules -o app-nexe --build --verbose",
     "build": "npm run build-nexe",
     "dev": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
