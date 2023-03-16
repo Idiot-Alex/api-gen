@@ -91,7 +91,9 @@ const buildData = async(request) => {
   return data
 }
 
-(async() => {
+async function start() {
   await app()
   await cdp()
-})()
+}
+
+export { start }
