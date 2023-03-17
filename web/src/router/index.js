@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import Layout from '../views/Layout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,7 +7,20 @@ const router = createRouter({
     {
       path: '/',
       name: 'layout',
-      component: import('../views/Layout.vue')
+      component: import('../views/Layout.vue'),
+      redirect: '/dashboard',
+      children: [
+        {
+          path: '/dashboard',
+          name: 'dashboard',
+          component: import('../views/Dashboard.vue')
+        },
+        {
+          path: '/api-list',
+          name: 'api-list',
+          component: import('../views/ApiList.vue')
+        }
+      ]
     },
     {
       path: '/home',

@@ -13,9 +13,7 @@
           <TopHeader />
         </el-header>
         <el-main>
-          <Main />
-          <el-divider/>
-          <HelloWorld msg="You did it!" />
+          <RouterView />
         </el-main>
       </el-container>
     </el-container>
