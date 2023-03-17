@@ -1,7 +1,30 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const toPage = (path) => {
+  router.push(path);
+}
 
 const collapseState = ref(false)
+
+const menus = [
+  {
+    id: '1',
+    name: '使用说明',
+    icon: 'HomeFilled',
+    path: '/dashboard'
+  },
+  {
+    id: '2',
+    name: 'API 列表',
+    icon: 'Document',
+    path: '/api-list'
+  }
+]
+
 
 </script>
 
@@ -11,13 +34,11 @@ const collapseState = ref(false)
     class="el-menu-vertical-demo"
     :collapse="collapseState"
   >
-    <el-menu-item index="1">
-      <el-icon><HomeFilled /></el-icon>
-      <template #title>使用说明</template>
-    </el-menu-item>
-    <el-menu-item index="2">
-      <el-icon><document /></el-icon>
-      <template #title>API 列表</template>
+    <el-menu-item v-for="menu in menus" :key="menu.id" :index="menu.id" @click="toPage(menu.path)">
+      <el-icon>
+        <component :is="menu.icon"></component>
+      </el-icon>
+      <template #title>{{menu.name}}</template>
     </el-menu-item>
   </el-menu>
 </template>
