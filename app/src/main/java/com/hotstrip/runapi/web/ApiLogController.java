@@ -24,12 +24,30 @@ public class ApiLogController {
     @Resource
     private ApiLogService apiLogService;
 
-    // api list
+    /**
+     * api list
+     * @param pageNo pageNo
+     * @param pageSize pageSize
+     * @param info ApiLog
+     * @return Page<ApiLog>
+     */
     @GetMapping("/list")
     public Page<ApiLog> list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                              @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize,
                              ApiLog info) {
         Page<ApiLog> page = apiLogService.listPage(pageNo, pageSize, info);
         return page;
+    }
+
+    /**
+     * 统计信息
+     * @return
+     */
+    public Object statics() {
+        // 统计 api 总数
+        apiLogService.count();
+        // 统计 api 分组数
+//        apiLogService.groupsCount();
+        return null;
     }
 }
