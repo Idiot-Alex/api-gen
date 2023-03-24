@@ -13,9 +13,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SnowFlakeConfig {
 
-    @Value("${snowflake.workerId:1L}")
+    @Value("${snowflake.workerId:1}")
     private long workerId;
-    @Value("${snowflake.datacenterId:1L}")
+    @Value("${snowflake.datacenterId:1}")
     private long datacenterId;
 
     @Bean
