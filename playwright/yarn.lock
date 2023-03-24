@@ -1429,17 +1429,17 @@
   "resolved" "https://registry.npmmirror.com/pify/-/pify-4.0.1.tgz"
   "version" "4.0.1"
 
-"playwright-core@1.31.1":
-  "integrity" "sha512-JTyX4kV3/LXsvpHkLzL2I36aCdml4zeE35x+G5aPc4bkLsiRiQshU5lWeVpHFAuC8xAcbI6FDcw/8z3q2xtJSQ=="
-  "resolved" "https://registry.npmmirror.com/playwright-core/-/playwright-core-1.31.1.tgz"
-  "version" "1.31.1"
-
-"playwright@^1.31.1":
-  "integrity" "sha512-zKJabsIA2rvOwJ12lGTqWv4HVJzlfw2JtUvO4hAr7J8UXQZ1qEPpX20E1vcz/9fotnTkwgqp3CVdIBwptBN3Fg=="
-  "resolved" "https://registry.npmmirror.com/playwright/-/playwright-1.31.1.tgz"
-  "version" "1.31.1"
+"playwright-chromium@^1.32.0":
+  "integrity" "sha512-E6/ZOyISS6LjpCQgjUOx56Pt3BHVXnnMuTprS/KofnG/+MQmPHudcmS5M5Qe8FjWK/YxtHvc5rhPAPMi5THlGw=="
+  "resolved" "https://registry.npmmirror.com/playwright-chromium/-/playwright-chromium-1.32.0.tgz"
+  "version" "1.32.0"
   dependencies:
-    "playwright-core" "1.31.1"
+    "playwright-core" "1.32.0"
+
+"playwright-core@1.32.0":
+  "integrity" "sha512-Z9Ij17X5Z3bjpp6XKujGBp9Gv4eViESac9aDmwgQFUEJBW0K80T21m/Z+XJQlu4cNsvPygw33b6V1Va6Bda5zQ=="
+  "resolved" "https://registry.npmmirror.com/playwright-core/-/playwright-core-1.32.0.tgz"
+  "version" "1.32.0"
 
 "readdirp@~3.6.0":
   "integrity" "sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA=="

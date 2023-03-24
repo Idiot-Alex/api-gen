@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "compile-es5": "rimraf dist && npx babel src --out-dir dist",
-    "build-nexe": "npm run compile-es5 && nexe -i dist/main.js -r ./dist -r ./node_modules -o bin/app-nexe --build --verbose",
+    "build-nexe": "npm run compile-es5 && nexe -i dist/main.js -r ./dist -r ./node_modules/playwright-chromium -o bin/app-nexe --build --verbose",
     "build": "npm run build-nexe && rimraf build && mkdirp build/dist && cp -r dist build/ && cp bin/app-nexe build/",
     "dev": "node src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "node-notifier": "^10.0.1",
-    "playwright": "^1.31.1"
+    "playwright-chromium": "^1.32.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",

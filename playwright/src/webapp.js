@@ -1,6 +1,6 @@
-import { chromium } from "playwright"
+import { chromium } from "playwright-chromium"
 import { upload } from "./api/api.js"
-import { notifyError, notifyApiResponseError } from "./notify.js"
+// import { notifyError, notifyApiResponseError } from "./notify.js"
 
 const app = async() => {
   const browser = await chromium.launch({
@@ -23,7 +23,7 @@ const cdp = async() => {
           console.log('-----', await res.text())
         }).catch(err => {
           console.log('-----', err)
-          notifyApiResponseError(err.message)
+          // notifyApiResponseError(err.message)
         })
       }
     })
@@ -35,7 +35,7 @@ const cdp = async() => {
           console.log('-----', res)
         }).catch(err => {
           console.log('-----', err)
-          notifyApiResponseError(err.message)
+          // notifyApiResponseError(err.message)
         })
       }
     })
@@ -62,7 +62,7 @@ const buildData = async(request) => {
           text = await response.text();
         } catch (error) {
           console.log('error: ', contentType, error)
-          notifyError(error.message)
+          // notifyError(error.message)
         }
     }
   }
