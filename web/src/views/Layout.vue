@@ -9,10 +9,10 @@
         <AsideMenu />
       </el-aside>
       <el-container>
-        <el-header class="header">
+        <el-header class="header" h-60px>
           <TopHeader />
         </el-header>
-        <el-main>
+        <el-main class="main-wrapper">
           <RouterView />
         </el-main>
       </el-container>
@@ -20,24 +20,14 @@
   </div>
 </template>
 <style scoped>
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.main-wrapper {
+  height: calc(100vh - var(--el-header-height));
 }
-
 nav {
   width: 100%;
   font-size: 12px;
   text-align: center;
   margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
 }
 
 nav a {

@@ -2,9 +2,14 @@
 import { onMounted, reactive, ref } from 'vue'
 import { list } from '@/api/api-log'
 
+const formData = reactive({
+  url: '',
+})
+
 const tableParams = reactive({
   pageNo: 1, 
-  pageSize: 20
+  pageSize: 20,
+  url: formData.url
 })
 const tableData = ref([])
 const tabledDataTotal = ref(0)
@@ -32,33 +37,23 @@ onMounted(() => {
   loadData()
 })
 
-const formInline = reactive({
-  user: '',
-  region: '',
-})
-
 const onSubmit = () => {
-  console.log('submit!')
+  console.log(formData)
+  loadData()
 }
 </script>
 
 <template>
-  <div>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
-      <el-form-item label="Approved by">
-        <el-input v-model="formInline.user" placeholder="Approved by" />
-      </el-form-item>
-      <el-form-item label="Activity zone">
-        <el-select v-model="formInline.region" placeholder="Activity zone">
-          <el-option label="Zone one" value="shanghai" />
-          <el-option label="Zone two" value="beijing" />
-        </el-select>
+  <div class="wrapper">
+    <el-form :inline="true" :model="formData" class="form-inline">
+      <el-form-item label="url">
+        <el-input v-model="formData.url" placeholder="url" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">Query</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="tableData">
+    <el-table :data="tableData" height="300px">
       <el-table-column fixed prop="url" label="url" width="150" show-overflow-tooltip />
       <el-table-column prop="method" label="method" width="120" />
       <el-table-column prop="resourceType" label="resourceType" width="120" />
@@ -87,6 +82,9 @@ const onSubmit = () => {
 </template>
 
 <style scoped>
+.wrapper {
+  height: 100%;
+}
 .pagination {
   margin-top: 20px;
 }
