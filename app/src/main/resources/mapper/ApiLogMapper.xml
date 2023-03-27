@@ -7,7 +7,7 @@
         FROM PUBLIC.api_log
         WHERE 1=1
         <if test="info.url != null">
-            AND url like concat(#{info.url}, '%')
+            AND url like concat('%', #{info.url}, '%')
         </if>
         order by create_time desc
     </select>

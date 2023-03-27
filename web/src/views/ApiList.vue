@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import { list } from '@/api/api-log'
 
 const formData = reactive({
@@ -11,8 +11,16 @@ const tableParams = reactive({
   pageSize: 20,
   url: formData.url
 })
+
+watch(formData, (newVal) => {
+  tableParams.url = newVal.url
+})
+
 const tableData = ref([])
 const tabledDataTotal = ref(0)
+const formInline = ref()
+const pagination = ref()
+const tableHeight = ref('300px')
 
 const loadData = () => {
   list(tableParams).then(res => {
@@ -21,31 +29,40 @@ const loadData = () => {
   })
 }
 
-const handleSizeChange = (val: number) => {
+const handleSizeChange = (val) => {
   tableParams.pageSize = val
   loadData()
   console.log(`${val} items per page`)
 }
-const handleCurrentChange = (val: number) => {
+const handleCurrentChange = (val) => {
   tableParams.pageNo = val
   loadData()
   console.log(`current page: ${val}`)
 }
 
 onMounted(() => {
-  console.log('mounted')
+  tableHeight.value = window.innerHeight - 120 - formInline.value.$el.clientHeight - pagination.value.$el.clientHeight + 'px'
   loadData()
 })
 
 const onSubmit = () => {
-  console.log(formData)
   loadData()
+}
+
+const formatBytes = (bytes) => {
+  if (bytes <= 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  const size = sizes[i];
+  const value = parseFloat((bytes / Math.pow(k, i)).toFixed(2));
+  return `${value} ${size}`;
 }
 </script>
 
 <template>
   <div class="wrapper">
-    <el-form :inline="true" :model="formData" class="form-inline">
+    <el-form :inline="true" :model="formData" ref="formInline" class="form-inline">
       <el-form-item label="url">
         <el-input v-model="formData.url" placeholder="url" />
       </el-form-item>
@@ -53,12 +70,16 @@ const onSubmit = () => {
         <el-button type="primary" @click="onSubmit">Query</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="tableData" height="300px">
+    <el-table :data="tableData" :height="tableHeight">
       <el-table-column fixed prop="url" label="url" width="150" show-overflow-tooltip />
       <el-table-column prop="method" label="method" width="120" />
       <el-table-column prop="resourceType" label="resourceType" width="120" />
       <el-table-column prop="status" label="status" width="120" />
-      <el-table-column prop="text" label="text" width="600" show-overflow-tooltip />
+      <el-table-column prop="responseBodySize" label="responseBodySize" width="100">
+        <template #default="{row}">
+          {{ formatBytes(row.responseBodySize) }}
+        </template>
+      </el-table-column>
       <!-- <el-table-column fixed="right" label="Operations" width="120">
         <template #default>
           <el-button link type="primary" size="small" @click="handleClick"
@@ -69,6 +90,7 @@ const onSubmit = () => {
       </el-table-column> -->
     </el-table>
     <el-pagination
+      ref="pagination"
       class="pagination"
       v-model:current-page="tableParams.pageNo"
       v-model:page-size="tableParams.pageSize"
