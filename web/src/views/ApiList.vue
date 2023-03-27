@@ -58,7 +58,7 @@ const onSubmit = () => {
         <el-button type="primary" @click="onSubmit">Query</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="tableData" style="width: 100%">
+    <el-table :data="tableData">
       <el-table-column fixed prop="url" label="url" width="150" show-overflow-tooltip />
       <el-table-column prop="method" label="method" width="120" />
       <el-table-column prop="resourceType" label="resourceType" width="120" />
