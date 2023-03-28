@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref, watch } from 'vue'
-import { list } from '@/api/api-log'
-import { formatBytes, calcHeight } from '@/utils/util'
-
 
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="h-100%">
     <el-tabs type="border-card">
       <el-tab-pane label="表格">
         <ApiLogTable />
@@ -19,7 +15,5 @@ import { formatBytes, calcHeight } from '@/utils/util'
 </template>
 
 <style scoped>
-.wrapper {
-  height: 100%;
-}
+
 </style>

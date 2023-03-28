@@ -60,7 +60,7 @@ const onSubmit = () => {
         <el-button type="primary" @click="onSubmit">Query</el-button>
       </el-form-item>
     </el-form>
-    <el-divider class="divider" />
+    <el-divider class="m-0!" />
     <el-table :data="tableData" :height="tableHeight">
       <el-table-column fixed prop="url" label="url" width="150" show-overflow-tooltip />
       <el-table-column prop="method" label="method" width="120" />
@@ -82,7 +82,7 @@ const onSubmit = () => {
     </el-table>
     <el-pagination
       ref="pagination"
-      class="pagination"
+      mt-20px
       v-model:current-page="tableParams.pageNo"
       v-model:page-size="tableParams.pageSize"
       :page-sizes="[20, 100, 200]"
@@ -94,10 +94,4 @@ const onSubmit = () => {
 </template>
 
 <style scoped>
-.divider {
-  margin: 0;
-}
-.pagination {
-  margin-top: 20px;
-}
 </style>

@@ -9,6 +9,7 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import UnoCSS from 'unocss/vite'
+import { presetAttributify, presetIcons, presetUno } from 'unocss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -39,6 +40,9 @@ export default defineConfig({
     }),
     UnoCSS({
       presets: [
+        presetAttributify(),
+        presetIcons(),
+        presetUno(),
       ],
     }),
   ],
