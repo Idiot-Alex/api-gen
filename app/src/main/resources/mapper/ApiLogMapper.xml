@@ -3,7 +3,7 @@
 <mapper namespace="com.hotstrip.runapi.domain.mapper.ApiLogMapper">
 
     <select id="listPage" resultType="com.hotstrip.runapi.domain.model.ApiLog">
-        SELECT *
+        SELECT distinct *
         FROM PUBLIC.api_log
         WHERE 1=1
         <if test="info.url != null">

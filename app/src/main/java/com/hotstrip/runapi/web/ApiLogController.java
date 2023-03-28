@@ -35,6 +35,7 @@ public class ApiLogController {
     public Page<ApiLog> list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                              @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize,
                              ApiLog info) {
+        log.info("ApiLogList...pageNo: {}, pageSize: {}, info: {}", pageNo, pageSize, info);
         Page<ApiLog> page = apiLogService.listPage(pageNo, pageSize, info);
         return page;
     }
