@@ -1,5 +1,8 @@
 package com.hotstrip.runapi.domain.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +14,9 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 @ToString
+@TableName("api_log")
 public class ApiLog {
+    @TableId(type = IdType.INPUT)
     private Long id;
     private String url;
     private String method;
@@ -32,4 +37,13 @@ public class ApiLog {
     private Integer responseHeadersSize;
 
     private Date createTime;
+
+    // 以下字段不存储到数据库
+    private String idStr;
+
+    public String getIdStr() {
+        if (null == id)
+            return "";
+        return id.toString();
+    }
 }

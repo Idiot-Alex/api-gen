@@ -25,7 +25,6 @@ onMounted(() => {
 
 const showData = (id) => {
   tempData.value = tableData.value.filter(item => item.id === id)[0]
-  console.log(tempData.value)
 }
 
 const headers = computed(() => {
@@ -42,12 +41,13 @@ const loadData = () => {
     loading.value = true
     setTimeout(() => {
       list(tableParams).then(res => {
-        console.log(res.records)
-        if (res.records) {
-          res.records.forEach(element => tableData.value.push(element))
-          tableParams.pageNo++
+        if (res.code === 0) {
+          if (res.data) {
+            res.records.forEach(element => tableData.value.push(element))
+            tableParams.pageNo++
+          }
+          tabledDataTotal.value = res.total
         }
-        tabledDataTotal.value = res.total
         loading.value = false
       })
     }, 200)

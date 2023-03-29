@@ -9,8 +9,12 @@ import axios from './config.js'
  * @returns 
  */
 export function list(params) {
-  console.log(params)
   return axios.get('/w/api-log/list', {
     params: params
   })
+}
+
+// delete by id
+export function del(id) {
+  return axios.post(`/w/api-log/delete/${id}`)
 }

@@ -2,12 +2,10 @@ package com.hotstrip.runapi.web;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hotstrip.runapi.domain.model.ApiLog;
+import com.hotstrip.runapi.domain.model.R;
 import com.hotstrip.runapi.domain.service.ApiLogService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -32,12 +30,25 @@ public class ApiLogController {
      * @return Page<ApiLog>
      */
     @GetMapping("/list")
-    public Page<ApiLog> list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+    public R list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                              @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize,
                              ApiLog info) {
-        log.info("ApiLogList...pageNo: {}, pageSize: {}, info: {}", pageNo, pageSize, info);
+        log.info("get api log list...pageNo: {}, pageSize: {}, info: {}", pageNo, pageSize, info);
         Page<ApiLog> page = apiLogService.listPage(pageNo, pageSize, info);
-        return page;
+        return R.ok(page.getRecords())
+                .put("total", page.getTotal());
+    }
+
+    /**
+     * delete by id
+     * @param id id
+     * @return
+     */
+    @PostMapping("/delete/{id}")
+    public R delete(@PathVariable("id") Long id) {
+        log.info("delete api log by id...id: {}", id);
+        apiLogService.removeById(id);
+        return R.ok();
     }
 
     /**
