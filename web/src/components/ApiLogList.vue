@@ -28,6 +28,13 @@ const showData = (id) => {
   console.log(tempData.value)
 }
 
+const headers = computed(() => {
+  if (Object.keys(tempData.value).length > 0) {
+    return JSON.parse(tempData.value.requestHeaders)
+  }
+  return {}
+})
+
 const loading = ref(false)
 const noMore = computed(() => tableData.value.length >= tabledDataTotal.value)
 const disabled = computed(() => loading.value || noMore.value)
@@ -84,30 +91,15 @@ const loadData = () => {
           <el-descriptions-item label="url" label-align="left" align="left" min-width="200">
             <span break-all overflow-y-scroll max-h-100px block>{{ tempData.url }}</span>
           </el-descriptions-item>
-          <el-descriptions-item label="text" label-align="left" align="left" min-width="200">
+          <el-descriptions-item v-if="tempData.text" label="text" label-align="left" align="left" min-width="200">
             <span break-all overflow-y-scroll max-h-100px block>{{ tempData.text }}</span>
           </el-descriptions-item>
         </el-descriptions>
         <el-descriptions
           title="headers"
-          direction="vertical"
           :column="2" mt-4 border>
-          <el-descriptions-item label="字段名" width="100">
-            <el-tag v-show="tempData.method" size="small">{{ tempData.method }}</el-tag>
-            </el-descriptions-item>
-          <el-descriptions-item label="字段值" label-align="left" align="left" min-width="200">
-            <span break-all overflow-y-scroll max-h-100px block>{{ tempData.url }}</span>
-          </el-descriptions-item>
-        </el-descriptions>
-        <el-descriptions
-          title="params"
-          direction="vertical"
-          :column="2" mt-4 border>
-          <el-descriptions-item label="字段名" width="100">
-            <el-tag v-show="tempData.method" size="small">{{ tempData.method }}</el-tag>
-            </el-descriptions-item>
-          <el-descriptions-item label="字段值" label-align="left" align="left" min-width="200">
-            <span break-all overflow-y-scroll max-h-100px block>{{ tempData.url }}</span>
+          <el-descriptions-item v-for="(v, k) in headers" :key="k" :label="k" width="200">
+            <span break-all overflow-y-scroll max-h-100px block>{{ v }}</span>
           </el-descriptions-item>
         </el-descriptions>
       </div>
