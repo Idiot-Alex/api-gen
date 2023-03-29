@@ -16,12 +16,17 @@ const tableParams = reactive({
 const tableData = ref([])
 const tabledDataTotal = ref(0)
 const listHeight = ref('300px')
+const tempData = ref({})
 
 onMounted(() => {
   listHeight.value = calcHeight(window.innerHeight, [175]) + 'px'
   loadData()
 })
 
+const showData = (id) => {
+  tempData.value = tableData.value.filter(item => item.id === id)[0]
+  console.log(tempData.value)
+}
 
 const loading = ref(false)
 const noMore = computed(() => tableData.value.length >= tabledDataTotal.value)
@@ -51,7 +56,7 @@ const loadData = () => {
         infinite-scroll-delay="500"
         :style="{height: listHeight}"
         overflow-scroll p-0 m-0>
-        <el-card shadow="hover" v-for="item in tableData" :key="item.id" mb-2 mr-2 cursor-pointer>
+        <el-card shadow="hover" v-for="item in tableData" :key="item.id" mb-2 mr-2 cursor-pointer @click="showData(item.id)">
           <el-tooltip
             effect="dark"
             :content="item.url"
@@ -65,8 +70,46 @@ const loadData = () => {
       </div>
     </el-col>
     <el-col :xs="8" :sm="12" :md="16" :lg="18" :xl="22" b-l-gray b-l-1 b-l-solid>
-      <div ml-2>
-        saf
+      <div :style="{height: listHeight}" ml-2 overflow-y-scroll>
+        <el-descriptions
+          title="接口详细信息"
+          direction="vertical"
+          :column="2" border>
+          <template #extra>
+            <el-button type="primary">Operation</el-button>
+          </template>
+          <el-descriptions-item label="method" width="100">
+            <el-tag v-show="tempData.method" size="small">{{ tempData.method }}</el-tag>
+            </el-descriptions-item>
+          <el-descriptions-item label="url" label-align="left" align="left" min-width="200">
+            <span break-all overflow-y-scroll max-h-100px block>{{ tempData.url }}</span>
+          </el-descriptions-item>
+          <el-descriptions-item label="text" label-align="left" align="left" min-width="200">
+            <span break-all overflow-y-scroll max-h-100px block>{{ tempData.text }}</span>
+          </el-descriptions-item>
+        </el-descriptions>
+        <el-descriptions
+          title="headers"
+          direction="vertical"
+          :column="2" mt-4 border>
+          <el-descriptions-item label="字段名" width="100">
+            <el-tag v-show="tempData.method" size="small">{{ tempData.method }}</el-tag>
+            </el-descriptions-item>
+          <el-descriptions-item label="字段值" label-align="left" align="left" min-width="200">
+            <span break-all overflow-y-scroll max-h-100px block>{{ tempData.url }}</span>
+          </el-descriptions-item>
+        </el-descriptions>
+        <el-descriptions
+          title="params"
+          direction="vertical"
+          :column="2" mt-4 border>
+          <el-descriptions-item label="字段名" width="100">
+            <el-tag v-show="tempData.method" size="small">{{ tempData.method }}</el-tag>
+            </el-descriptions-item>
+          <el-descriptions-item label="字段值" label-align="left" align="left" min-width="200">
+            <span break-all overflow-y-scroll max-h-100px block>{{ tempData.url }}</span>
+          </el-descriptions-item>
+        </el-descriptions>
       </div>
     </el-col>
   </el-row>
