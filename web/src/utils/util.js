@@ -16,4 +16,11 @@ function calcHeight(totalHeight, items=[]) {
   return height;
 }
 
-export { formatBytes, calcHeight }
+function formatDateTime(dateTime) {
+  const now = new Date(dateTime)
+  const date = now.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' })
+  const time = now.toLocaleTimeString('en-US', { hour12: false })
+  return `${date} ${time}`
+} 
+
+export { formatBytes, calcHeight, formatDateTime }

@@ -23,8 +23,8 @@ onMounted(() => {
   loadData()
 })
 
-const showData = (id) => {
-  tempData.value = tableData.value.filter(item => item.id === id)[0]
+const showData = (row) => {
+  tempData.value = row
 }
 
 const headers = computed(() => {
@@ -43,7 +43,7 @@ const loadData = () => {
       list(tableParams).then(res => {
         if (res.code === 0) {
           if (res.data) {
-            res.records.forEach(element => tableData.value.push(element))
+            res.data.forEach(element => tableData.value.push(element))
             tableParams.pageNo++
           }
           tabledDataTotal.value = res.total
@@ -63,7 +63,7 @@ const loadData = () => {
         infinite-scroll-delay="500"
         :style="{height: listHeight}"
         overflow-scroll p-0 m-0>
-        <el-card shadow="hover" v-for="item in tableData" :key="item.id" mb-2 mr-2 cursor-pointer @click="showData(item.id)">
+        <el-card shadow="hover" v-for="item in tableData" :key="item.id" mb-2 mr-2 cursor-pointer @click="showData(item)">
           <el-tooltip
             effect="dark"
             :content="item.url"
