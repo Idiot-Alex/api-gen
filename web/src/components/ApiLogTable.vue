@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, computed, reactive, ref, watch } from 'vue'
 import { list, del } from '@/api/api-log'
-import { formatBytes, calcHeight } from '@/utils/util'
+import { formatBytes, calcHeight, formatDateTime } from '@/utils/util'
 
 const formData = reactive({
   url: '',
@@ -151,7 +151,7 @@ const resHeaders = computed(() => {
             <span font-800>状态码</span>：<span>{{ tempData.status }}</span>
           </p>
           <p>
-            <span font-800>请求时间</span>：<span>{{ tempData.createTime }}</span>
+            <span font-800>请求时间</span>：<span>{{ formatDateTime(tempData.createTime) }}</span>
           </p>
         </el-collapse-item>
         <el-collapse-item title="请求头信息" name="2">
