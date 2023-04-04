@@ -4,14 +4,7 @@
 
 <template>
   <div class="h-100%">
-    <el-tabs type="border-card">
-      <el-tab-pane label="表格">
-        <ApiLogTable />
-      </el-tab-pane>
-      <el-tab-pane label="列表">
-        <ApiLogList />
-      </el-tab-pane>
-    </el-tabs>
+    <ApiLogTable />
   </div>
 </template>
 

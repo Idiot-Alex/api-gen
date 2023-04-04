@@ -47,7 +47,7 @@ const handleCurrentChange = (val) => {
 }
 
 onMounted(() => {
-  tableHeight.value = calcHeight(window.innerHeight, [280, formInline.value.$el.clientHeight, pagination.value.$el.clientHeight]) + 'px'
+  tableHeight.value = calcHeight(window.innerHeight, [120, formInline.value.$el.clientHeight, pagination.value.$el.clientHeight]) + 'px'
   loadData()
 })
 

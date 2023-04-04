@@ -1,12 +1,14 @@
 package com.hotstrip.runapi.domain.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.annotation.Transient;
 
 import java.util.Date;
 
@@ -39,6 +41,7 @@ public class ApiLog {
     private Date createTime;
 
     // 以下字段不存储到数据库
+    @TableField(exist = false)
     private String idStr;
 
     public String getIdStr() {
