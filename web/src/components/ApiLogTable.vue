@@ -63,7 +63,7 @@ const handleDelete = (id) => {
   })
 }
 
-const showDrawer = (row) => {
+const showDetailDrawer = (row) => {
   tempData.value = row
   drawerVisible.value = true
 }
@@ -108,7 +108,7 @@ const resHeaders = computed(() => {
     </el-table-column>
     <el-table-column fixed="right" label="操作" width="150">
       <template #default="{row}">
-        <el-button type="primary" size="small" @click="showDrawer(row)">详情</el-button>
+        <el-button type="primary" size="small" @click="showDetailDrawer(row)">详情</el-button>
         <el-popconfirm title="是否确认删除该记录?" confirm-button-text="是" cancel-button-text="否" 
           confirm-button-type="danger" cancel-button-type="primary" width="200" 
           @confirm="handleDelete(row.idStr)">
@@ -131,7 +131,8 @@ const resHeaders = computed(() => {
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange" />
     <!-- 抽屉框 -->
-    <el-drawer
+    <div class="api-log-detail-drawer">
+      <el-drawer
       v-model="drawerVisible"
       title="接口详情信息"
       direction="ltr"
@@ -166,11 +167,11 @@ const resHeaders = computed(() => {
         </el-collapse-item>
       </el-collapse>
     </el-drawer>
+    </div>
 </template>
 
-<style>
-.el-drawer__heade {
+<style scoped>
+.api-log-detail-drawer :deep(.el-drawer__header) {
   margin-bottom: 0;
-  padding-bottom: 0;
 }
 </style>
