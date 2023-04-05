@@ -63,6 +63,11 @@ const handleDelete = (id) => {
   })
 }
 
+const activeNames = ['1']
+const handleChange = (activeNames) => {
+  activeNames.value = activeNames
+}
+
 const showDetailDrawer = (row) => {
   tempData.value = row
   drawerVisible.value = true
@@ -99,11 +104,19 @@ const resHeaders = computed(() => {
       <el-tag>{{ scope.row.method }}</el-tag>
     </template>
     </el-table-column>
-    <el-table-column prop="resourceType" label="资源类型" width="120" />
-    <el-table-column prop="status" label="状态码" width="120" />
-    <el-table-column prop="responseBodySize" label="响应体大小" width="100">
+    <el-table-column prop="resourceType" label="资源类型" width="120" >
       <template #default="{row}">
-        {{ formatBytes(row.responseBodySize) }}
+        <el-tag type="success">{{ row.resourceType }}</el-tag>
+      </template>
+    </el-table-column>
+    <el-table-column prop="status" label="状态码" width="120" align="right">
+      <template #default="{row}">
+        <el-tag type="success">{{ row.status }}</el-tag>
+      </template>
+    </el-table-column>
+    <el-table-column prop="responseBodySize" label="响应体大小" width="100" align="right">
+      <template #default="{row}">
+        <el-tag type="info">{{ formatBytes(row.responseBodySize) }}</el-tag>
       </template>
     </el-table-column>
     <el-table-column fixed="right" label="操作" width="150">
