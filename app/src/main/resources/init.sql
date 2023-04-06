@@ -2,6 +2,8 @@
 create table if not exists `PUBLIC`.`api_log`(
     `id` bigint not null primary key ,
     `url` CLOB not null,
+    `host` varchar(255) null,
+    `site` varchar(255) null,
     `method` varchar(10) null,
     `resource_type` varchar(255) not null,
     `request_headers` CLOB null,

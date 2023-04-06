@@ -13,7 +13,7 @@ const collapseState = ref(false)
 const menus = [
   {
     id: '1',
-    name: '使用说明',
+    name: '首页',
     icon: 'HomeFilled',
     path: '/dashboard'
   },

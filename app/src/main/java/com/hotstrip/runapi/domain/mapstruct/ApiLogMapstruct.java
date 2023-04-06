@@ -6,7 +6,9 @@ import com.hotstrip.runapi.domain.model.ApiLog;
 import com.hotstrip.runapi.domain.model.dto.ApiDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
+import java.net.URL;
 import java.util.Date;
 
 /**
@@ -18,6 +20,8 @@ import java.util.Date;
 public interface ApiLogMapstruct {
 
     @Mapping(target = "id", expression = "java(IdUtil.getSnowflake().nextId())")
+    @Mapping(source = "url", target = "host", qualifiedByName = "getHostByUrl")
+    @Mapping(source = "url", target = "site", qualifiedByName = "getSiteByUrl")
     @Mapping(source = "request.resourceType", target = "resourceType")
     @Mapping(target = "requestHeaders", expression = "java(JacksonUtil.toJsonString(apiDto.getRequest().getHeaders()))")
     @Mapping(source = "request.postData", target = "postData")
@@ -33,4 +37,24 @@ public interface ApiLogMapstruct {
     @Mapping(source = "response.responseHeadersSize", target = "responseHeadersSize")
     @Mapping(target = "createTime", expression = "java(new Date())")
     ApiLog dtoToModel(ApiDto apiDto);
+
+    @Named("getHostByUrl")
+    default String getHostByUrl(String url) {
+        try {
+            return new URL(url).getHost();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    @Named("getSiteByUrl")
+    default String getSiteByUrl(String url) {
+        try {
+            URL urlObj = new URL(url);
+            int port = urlObj.getPort() == -1 ? urlObj.getDefaultPort() : urlObj.getPort();
+            return String.format("%s:%d", urlObj.getHost(), port);
+        } catch (Exception e) {
+            return "";
+        }
+    }
 }

@@ -55,11 +55,11 @@ public class ApiLogController {
      * 统计信息
      * @return
      */
-    public Object statics() {
+    public R statics() {
         // 统计 api 总数
-        apiLogService.count();
+        long totalCount = apiLogService.count();
         // 统计 api 分组数
-//        apiLogService.groupsCount();
-        return null;
+        // apiLogService.groupsCount();
+        return R.ok();
     }
 }

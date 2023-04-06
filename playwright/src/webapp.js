@@ -41,7 +41,7 @@ const cdp = async() => {
     })
   })
   
-  await page.goto("https://www.google.com/")
+  await page.goto("https://idiot-alex.github.io/api-gen/")
 
 }
 

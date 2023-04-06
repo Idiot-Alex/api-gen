@@ -20,6 +20,8 @@ public class ApiLog {
     @TableId(type = IdType.INPUT)
     private Long id;
     private String url;
+    private String host;
+    private String site;
     private String method;
 
     private String resourceType;
