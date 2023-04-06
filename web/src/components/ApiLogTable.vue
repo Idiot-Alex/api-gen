@@ -100,18 +100,21 @@ const resHeaders = computed(() => {
   <el-table v-loading="loading" :data="tableData" :height="tableHeight">
     <el-table-column fixed prop="url" label="请求地址" show-overflow-tooltip />
     <el-table-column prop="method" label="请求方式" width="120">
-      <template #default="scope">
-      <el-tag>{{ scope.row.method }}</el-tag>
+      <template #default="{row}">
+      <el-tag v-if="row.method === 'GET'">{{ row.method }}</el-tag>
+      <el-tag v-else-if="row.method === 'POST'" type="success">{{ row.method }}</el-tag>
+      <el-tag v-else type="info">{{ row.method }}</el-tag>
     </template>
     </el-table-column>
     <el-table-column prop="resourceType" label="资源类型" width="120" >
       <template #default="{row}">
-        <el-tag type="success">{{ row.resourceType }}</el-tag>
+        <el-tag type="info">{{ row.resourceType }}</el-tag>
       </template>
     </el-table-column>
     <el-table-column prop="status" label="状态码" width="120" align="right">
       <template #default="{row}">
-        <el-tag type="success">{{ row.status }}</el-tag>
+        <el-tag v-if="row.status === 200" type="success">{{ row.status }}</el-tag>
+        <el-tag v-if="row.status !== 200" type="info">{{ row.status }}</el-tag>
       </template>
     </el-table-column>
     <el-table-column prop="responseBodySize" label="响应体大小" width="100" align="right">
