@@ -3,18 +3,25 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/public/favicon.ico">
     <title>ApiGen Docs</title>
     <link rel="stylesheet" href="https://unpkg.com/docute@4/dist/docute.css">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./public/style.css">
   </head>
   <body>
     <div id="docute"></div>
-    <script src="./config-nav.js"></script>
-    <script src="./config-sidebar.js"></script>
+    <script src="./public/config-nav.js"></script>
+    <script src="./public/config-sidebar.js"></script>
     <script src="https://unpkg.com/docute@4/dist/docute.js"></script>
     <script>
       new Docute({
 		  title: 'ApiGen Doc',
+      layout: 'wide',
+      versions: {
+        'v1': {
+          link: '/v1/',
+        }
+      },
       // 代码高亮配置
 		  highlight: [
 		    'typescript', 
@@ -23,8 +30,6 @@
 			],
       // 主题切换开关
 		  darkThemeToggler: true,
-      // 顶部banner配置
-		  banner: `Please <a href="https://donate.com/link">donate</a> <ExternalLinkIcon /> to support this project!`,
       // 顶部导航栏配置
 		  nav: _nav,
       // 侧边栏配置
