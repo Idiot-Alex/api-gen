@@ -30,4 +30,14 @@ public class ApiLogServiceImpl extends ServiceImpl<ApiLogMapper, ApiLog> impleme
         }
         this.save(apiLog);
     }
+
+    @Override
+    public long countGroupByHost() {
+        return lambdaQuery().groupBy(ApiLog::getHost).count();
+    }
+
+    @Override
+    public long countGroupBySite() {
+        return lambdaQuery().groupBy(ApiLog::getSite).count();
+    }
 }

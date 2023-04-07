@@ -1,9 +1,9 @@
 package com.hotstrip.runapi.domain.mapstruct;
 
 import cn.hutool.core.util.IdUtil;
-import com.hotstrip.runapi.JacksonUtil;
 import com.hotstrip.runapi.domain.model.ApiLog;
 import com.hotstrip.runapi.domain.model.dto.ApiDto;
+import com.hotstrip.runapi.utils.JacksonUtil;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -23,13 +23,13 @@ public interface ApiLogMapstruct {
     @Mapping(source = "url", target = "host", qualifiedByName = "getHostByUrl")
     @Mapping(source = "url", target = "site", qualifiedByName = "getSiteByUrl")
     @Mapping(source = "request.resourceType", target = "resourceType")
-    @Mapping(target = "requestHeaders", expression = "java(JacksonUtil.toJsonString(apiDto.getRequest().getHeaders()))")
+    @Mapping(target = "requestHeaders", expression = "java(com.hotstrip.runapi.utils.JacksonUtil.toJsonString(apiDto.getRequest().getHeaders()))")
     @Mapping(source = "request.postData", target = "postData")
     @Mapping(source = "request.failed", target = "failed")
     @Mapping(source = "request.errorText", target = "errorText")
     @Mapping(source = "request.requestBodySize", target = "requestBodySize")
     @Mapping(source = "request.requestHeadersSize", target = "requestHeadersSize")
-    @Mapping(target = "responseHeaders", expression = "java(JacksonUtil.toJsonString(apiDto.getResponse().getHeaders()))")
+    @Mapping(target = "responseHeaders", expression = "java(com.hotstrip.runapi.utils.JacksonUtil.toJsonString(apiDto.getResponse().getHeaders()))")
     @Mapping(source = "response.text", target = "text")
     @Mapping(source = "response.status", target = "status")
     @Mapping(source = "response.statusText", target = "statusText")

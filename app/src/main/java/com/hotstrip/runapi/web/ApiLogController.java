@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * api log controller
@@ -55,11 +57,20 @@ public class ApiLogController {
      * 统计信息
      * @return
      */
+    @PostMapping("/statics")
     public R statics() {
+        Map map = new HashMap();
         // 统计 api 总数
         long totalCount = apiLogService.count();
-        // 统计 api 分组数
-        // apiLogService.groupsCount();
-        return R.ok();
+        // 统计 host 分组数
+        long hostCount = apiLogService.countGroupByHost();
+        // 统计 site 分组数
+        long siteCount = apiLogService.countGroupBySite();
+
+        map.put("totalCount", totalCount);
+        map.put("hostCount", hostCount);
+        map.put("siteCount", siteCount);
+
+        return R.ok(map);
     }
 }

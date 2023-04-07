@@ -8,4 +8,8 @@ public interface ApiLogService extends IService<ApiLog> {
     Page<ApiLog> listPage(Integer pageNo, Integer pageSize, ApiLog info);
 
     void insert(ApiLog apiLog);
+
+    long countGroupByHost();
+
+    long countGroupBySite();
 }
