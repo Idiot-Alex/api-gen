@@ -9,12 +9,17 @@ import axios from './config.js'
  * @returns 
  */
 export function list(params) {
-  return axios.get('/w/api-log/list', {
-    params: params
+  return axios.post('/w/api-log/list', {
+    data: params
   })
 }
 
 // delete by id
 export function del(id) {
   return axios.post(`/w/api-log/delete/${id}`)
+}
+
+// statistics
+export function statistics() {
+  return axios.post('/w/api-log/statistics')
 }

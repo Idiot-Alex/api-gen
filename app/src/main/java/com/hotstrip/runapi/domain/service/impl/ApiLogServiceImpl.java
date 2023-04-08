@@ -1,15 +1,17 @@
 package com.hotstrip.runapi.domain.service.impl;
 
-import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hotstrip.runapi.config.snowflake.SnowFlakeTemplate;
 import com.hotstrip.runapi.domain.mapper.ApiLogMapper;
 import com.hotstrip.runapi.domain.model.ApiLog;
+import com.hotstrip.runapi.domain.model.dto.HostCount;
+import com.hotstrip.runapi.domain.model.dto.SiteCount;
 import com.hotstrip.runapi.domain.service.ApiLogService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ApiLogServiceImpl extends ServiceImpl<ApiLogMapper, ApiLog> implements ApiLogService {
@@ -32,12 +34,12 @@ public class ApiLogServiceImpl extends ServiceImpl<ApiLogMapper, ApiLog> impleme
     }
 
     @Override
-    public long countGroupByHost() {
-        return lambdaQuery().groupBy(ApiLog::getHost).count();
+    public List<HostCount> listGroupByHost() {
+        return apiLogMapper.listGroupByHost();
     }
 
     @Override
-    public long countGroupBySite() {
-        return lambdaQuery().groupBy(ApiLog::getSite).count();
+    public List<SiteCount> listGroupBySite() {
+        return apiLogMapper.listGroupBySite();
     }
 }
