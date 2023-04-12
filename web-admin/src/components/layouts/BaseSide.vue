@@ -28,10 +28,6 @@
       <el-icon><icon-menu /></el-icon>
       <template #title>Navigator Two</template>
     </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <el-icon><document /></el-icon>
-      <template #title>Navigator Three</template>
-    </el-menu-item>
     <el-menu-item index="4">
       <el-icon><setting /></el-icon>
       <template #title>Navigator Four</template>
