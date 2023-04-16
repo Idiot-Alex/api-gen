@@ -62,4 +62,13 @@ export default defineConfig({
       ]
     }),
   ],
+  server: {
+    proxy: {
+      '/github': {
+        target: 'https://idiot-alex.github.io',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/github/, '')
+      }
+    }
+  }
 })

@@ -1,36 +1,22 @@
 <template>
   <el-menu
     default-active="2"
-    class="el-menu-vertical-demo"
+    class="el-menu-vertical"
     :collapse="isCollapse"
     @open="handleOpen"
     @close="handleClose"
   >
-    <el-sub-menu index="1">
-      <template #title>
-        <el-icon><location /></el-icon>
-        <span>Navigator One</span>
-      </template>
-      <el-menu-item-group>
-        <template #title><span>Group One</span></template>
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-      <el-sub-menu index="1-4">
-        <template #title><span>item four</span></template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
+    <el-menu-item index="1">
+      <el-icon><location /></el-icon>
+      <template #title>使用说明</template>
+    </el-menu-item>
     <el-menu-item index="2">
       <el-icon><icon-menu /></el-icon>
-      <template #title>Navigator Two</template>
+      <template #title>数据面板</template>
     </el-menu-item>
-    <el-menu-item index="4">
+    <el-menu-item index="3">
       <el-icon><setting /></el-icon>
-      <template #title>Navigator Four</template>
+      <template #title>Api 列表</template>
     </el-menu-item>
   </el-menu>
 </template>
@@ -53,3 +39,11 @@ const handleClose = (key: string, keyPath: string[]) => {
 }
 </script>
 
+<style scoped>
+.el-menu-vertical {
+  height: calc(100vh - 60px);
+}
+.ep-menu-item {
+  width: 63px;
+}
+</style>
