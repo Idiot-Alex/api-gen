@@ -14,6 +14,10 @@ import {
   transformerVariantGroup,
 } from 'unocss'
 
+import AutoImport from 'unplugin-auto-import/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+
 const pathSrc = path.resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
@@ -32,6 +36,14 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    AutoImport({
+      resolvers: [
+        ElementPlusResolver(),
+        IconsResolver({
+          prefix: 'Icon'
+        })
+      ]
+    }),
     Components({
       // allow auto load markdown components under `./src/components/`
       extensions: ['vue', 'md'],
@@ -41,8 +53,15 @@ export default defineConfig({
         ElementPlusResolver({
           importStyle: 'sass',
         }),
+        IconsResolver({
+          enabledCollections: ['ep']
+        })
       ],
       dts: 'src/components.d.ts',
+    }),
+
+    Icons({
+      autoInstall: true,
     }),
 
     // https://github.com/antfu/unocss

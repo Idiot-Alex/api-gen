@@ -4,11 +4,17 @@ const routes: any[] = [
     {
         path: '/',
         name: 'home',
-        component: () => import('~/components/HelloWorld.vue')
-    }, {
+        redirect: '/guide',
+    }, 
+    {
         path: '/guide',
         name: 'guide',
         component: () => import('~/components/Guide.vue')
+    },
+    {
+        path: '/hello',
+        name: 'hello',
+        component: () => import('~/components/HelloWorld.vue')
     }
 ]
 
