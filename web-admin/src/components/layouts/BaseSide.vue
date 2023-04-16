@@ -25,7 +25,6 @@ const menuIndex = computed(() => {
   if (index !== menuStore.menuIndex) {
     menuStore.changeMenuIndex(index)
   }
-  console.log(menuStore.menuIndex)
   return menuStore.menuIndex
 })
 

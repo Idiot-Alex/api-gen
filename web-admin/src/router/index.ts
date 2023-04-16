@@ -1,3 +1,4 @@
+import { defineAsyncComponent } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes: any[] = [
@@ -9,12 +10,12 @@ const routes: any[] = [
     {
         path: '/guide',
         name: 'guide',
-        component: () => import('~/components/Guide.vue')
+        component: () => defineAsyncComponent(() => import('~/components/Guide.vue'))
     },
     {
         path: '/hello',
         name: 'hello',
-        component: () => import('~/components/HelloWorld.vue')
+        component: () => defineAsyncComponent(() => import('~/components/HelloWorld.vue'))
     }
 ]
 
