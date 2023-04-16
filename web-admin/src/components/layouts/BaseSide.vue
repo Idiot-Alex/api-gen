@@ -1,42 +1,46 @@
 <template>
   <el-menu
-    default-active="2"
+    :default-active="menuIndex"
     class="el-menu-vertical"
     :collapse="isCollapse"
-    @open="handleOpen"
-    @close="handleClose"
   >
     <el-menu-item v-for="menu in menus" :key="menu.path" :index="menu.path" @click="toPath(menu.path)">
-      <el-icon><component :is="menu.icon"></component></el-icon>
+      <el-icon><component :is="menu.icon" /></el-icon>
       <template #title>{{ menu.title }}</template>
-    </el-menu-item>
-    <el-menu-item index="2">
-      <el-icon><icon-menu /></el-icon>
-      <template #title>数据面板</template>
     </el-menu-item>
   </el-menu>
 </template>
 
 <script lang="ts" setup>
+import { computed } from '@vue/reactivity';
 import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router'
+import { useMenuStore } from '~/stores/menu'
+
+const route = useRoute()
+const menuStore = useMenuStore()
+
+const menuIndex = computed(() => {
+  const index = route.path
+  if (index !== menuStore.menuIndex) {
+    menuStore.changeMenuIndex(index)
+  }
+  console.log(menuStore.menuIndex)
+  return menuStore.menuIndex
+})
 
 const menus = reactive([
   { path: '/guide', title: '使用说明', icon: 'Location' },
   { path: '/dashboard', title: '数据面板', icon: 'Menu' },
-  { path: '/api-list', title: 'Api 列表', icon: 'Setting' }
+  { path: '/api-list', title: 'Api 列表', icon: 'Setting' },
+  { path: '/hello', title: 'Hello', icon: 'User' }
 ])
 
 const isCollapse = ref(true)
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
 
 const router = useRouter()
 const toPath = (path: any) => {
+  menuStore.changeMenuIndex(path)
   router.push({path})
 }
 </script>
