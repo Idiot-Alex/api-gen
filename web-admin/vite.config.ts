@@ -84,6 +84,11 @@ export default defineConfig({
   ],
   server: {
     proxy: {
+      '/w': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/w/, ''),
+      },
       '/github': {
         target: 'https://idiot-alex.github.io',
         changeOrigin: true,

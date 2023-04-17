@@ -4,10 +4,12 @@
     <div style="display: flex">
       <BaseSide />
       <div class="main-container">
-        <Transition :duration="500" name="fade" mode="out-in">
-          <el-skeleton v-if="showSkeleton" :rows="6" animated w-70vw mt-4 m-a/>
-          <RouterView v-else />
-        </Transition>
+        <RouterView v-slot="{ Component }">
+          <Transition :duration="500" name="fade" mode="out-in">
+            <el-skeleton v-if="showSkeleton" :rows="6" animated w-70vw mt-4 m-a/>
+            <component v-else :is="Component" />
+          </Transition>
+        </RouterView>
       </div>
     </div>
   </el-config-provider>
