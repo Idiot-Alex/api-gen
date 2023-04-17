@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { ElMessage } from 'element-plus'
 
-defineProps<{ msg: string }>();
+// defineProps<{ msg: string }>();
 
 const count = ref(0);
 const input = ref("element-plus");
@@ -17,7 +17,7 @@ const toast = () => {
 <template>
   <div text-center>
     <img alt="Vue logo" class="element-plus-logo" src="../assets/logo.png" />
-    <h1>{{ msg }}</h1>
+    <!-- <h1>{{ msg }}</h1> -->
 
     <p>
       See
