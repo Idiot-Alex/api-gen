@@ -1,4 +1,4 @@
-import { request } from 'playwright'
+import { request } from 'playwright-chromium'
 
 const apiReqCtx = async () => {
   return await request.newContext({
