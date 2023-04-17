@@ -4,8 +4,10 @@
     <div style="display: flex">
       <BaseSide />
       <div class="main-container">
-        <el-skeleton v-if="showSkeleton" :rows="5" animated w-70vw mt-4 m-a/>
-        <RouterView v-else />
+        <Transition :duration="500" name="fade" mode="out-in">
+          <el-skeleton v-if="showSkeleton" :rows="6" animated w-70vw mt-4 m-a/>
+          <RouterView v-else />
+        </Transition>
       </div>
     </div>
   </el-config-provider>
@@ -18,8 +20,9 @@ const showSkeleton = ref(true)
 onMounted(() => {
   setTimeout(() => {
     showSkeleton.value = false
-  }, 1000)
+  }, 600)
 })
+
 </script>
 <style>
 #app {
