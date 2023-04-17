@@ -31,7 +31,7 @@ const menuIndex = computed(() => {
 const menus = reactive([
   { path: '/guide', title: '使用说明', icon: 'Location' },
   { path: '/dashboard', title: '数据面板', icon: 'Menu' },
-  { path: '/api-list', title: 'Api 列表', icon: 'Setting' },
+  { path: '/api-log-list', title: 'Api 列表', icon: 'Setting' },
   { path: '/hello', title: 'Hello', icon: 'User' }
 ])
 

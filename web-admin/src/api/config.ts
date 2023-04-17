@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
+import { MyAxiosResponse } from '~/utils/types'
 
 const service = axios.create({
   baseURL: 'http://localhost:8080',
@@ -18,7 +19,7 @@ service.interceptors.request.use(
 )
 
 service.interceptors.response.use(
-  response => {
+  (response: AxiosResponse<MyAxiosResponse>) => {
     // 在响应数据返回前可以做一些处理
     // 比如统一处理响应数据、返回错误信息等操作
     return response.data

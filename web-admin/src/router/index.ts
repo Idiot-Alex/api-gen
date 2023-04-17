@@ -17,6 +17,11 @@ const routes: any[] = [
         component: () => import('~/components/Guide.vue')
     },
     {
+        path: '/api-log-list',
+        name: 'api-log',
+        component: () => import('~/components/ApiLogList.vue')
+    },
+    {
         path: '/hello',
         name: 'hello',
         component: () => import('../components/HelloWorld.vue')
