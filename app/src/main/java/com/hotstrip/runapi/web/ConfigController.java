@@ -28,7 +28,7 @@ public class ConfigController {
      * 从数据库中加载配置信息接口
      * @return
      */
-    @PostMapping("/config")
+    @PostMapping("/load")
     public R loadConfig() {
         String prefix = "client_";
         List<Config> configList = configService.listByName(prefix);

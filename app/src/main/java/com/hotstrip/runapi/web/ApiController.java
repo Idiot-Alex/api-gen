@@ -21,7 +21,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/w/api")
 public class ApiController {
 
     @Resource
