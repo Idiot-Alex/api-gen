@@ -40,7 +40,7 @@ public class ApiLogController {
                              ApiLog info) {
         log.info("get api log list...pageNo: {}, pageSize: {}, info: {}", pageNo, pageSize, info);
         Page<ApiLog> page = apiLogService.listPage(pageNo, pageSize, info);
-        return R.ok(page.getRecords())
+        return R.okData(page.getRecords())
                 .put("total", page.getTotal());
     }
 
@@ -76,6 +76,6 @@ public class ApiLogController {
         map.put("hostList", hostCountList);
         map.put("siteList", siteCountList);
 
-        return R.ok(map);
+        return R.okData(map);
     }
 }

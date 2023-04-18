@@ -58,11 +58,4 @@ public class ApiController {
         return R.ok();
     }
 
-    // 从数据库中加载配置信息接口
-    @PostMapping("/config")
-    public R loadConfig() {
-        // TODO
-        return R.ok();
-    }
-
 }

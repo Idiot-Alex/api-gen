@@ -25,7 +25,7 @@ create table if not exists `PUBLIC`.`api_log`(
 create table if not exists `PUBLIC`.`config`(
     `id` bigint not null primary key ,
     `name` varchar(255) not null,
-    `value` varchar(255) null,
+    `value` CLOB null,
     `description` varchar(255) null,
     `create_time` timestamp null
 );

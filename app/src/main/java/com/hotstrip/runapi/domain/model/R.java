@@ -14,7 +14,7 @@ public class R extends HashMap<String, Object> {
         return error(500, "未知异常，请联系管理员");
     }
 
-    public static R error(String msg) {
+    public static R errorMsg(String msg) {
         return error(500, msg);
     }
 
@@ -25,13 +25,13 @@ public class R extends HashMap<String, Object> {
         return r;
     }
 
-    public static R ok(String msg) {
+    public static R okMsg(String msg) {
         R r = new R();
         r.put("msg", msg);
         return r;
     }
 
-    public static R ok(Object data) {
+    public static R okData(Object data) {
         R r = new R();
         r.put("data", data);
         return r;
