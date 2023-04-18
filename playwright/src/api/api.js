@@ -1,13 +1,23 @@
 
 import apiReqCtx from './request-config.js'
 
+// check health
+export async function health() {
+  return (await apiReqCtx()).post('/w/api/health')
+}
+
 /**
  * upload data
  * @param {JSON} data 
  * @returns APIResponse
  */
 export async function upload(data) {
-  return (await apiReqCtx()).post('/api/upload', {
+  return (await apiReqCtx()).post('/w/api/upload', {
     data: data
   })
+}
+
+// load config
+export async function loadConfig() {
+  return (await apiReqCtx()).post('/w/config/load')
 }
