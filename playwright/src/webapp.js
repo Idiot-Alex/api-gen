@@ -1,6 +1,6 @@
 import { chromium } from 'playwright-chromium'
 import { upload } from './api/api.js'
-// import { notifyError, notifyApiResponseError } from "./notify.js"
+import { notifyError, notifyApiResponseError } from './notify.js'
 
 const execPageScript = async (page, scriptFile) => {
   await page.evaluate(async () => {
@@ -30,40 +30,26 @@ const cdp = async() => {
   const sweetAlertFile = 'src/lib/sweetalert2.all.min.js'
 
   const browser = await chromium.connectOverCDP('http://127.0.0.1:9222/');
+  
+  const page = await browser.newPage()
 
-  browser.contexts().forEach(async (browserContext) => {
-    // 注入 SweetAlert2 文件
-    // browserContext.pages().forEach(async (page1) => {
-    //   console.log('....')
-    //   // 监听 frame.navigated 事件，检查每个 frame 是否已经发生导航
-    //   page1.on('frameattached', async (frame) => {
-    //     await frame.addScriptTag({ path: sweetAlertFile})
-    //   })
-    //   page1.on('framenavigated', async (frame) => {
-    //     await frame.addScriptTag({ path: sweetAlertFile})
-    //   })
-    // })
-
-    browserContext.on('page', async (pg) => {
-      console.log('page ', pg.url())
-      // 监听 frame.navigated 事件，检查每个 frame 是否已经发生导航
-      pg.on('frameattached', async (frame) => {
-        await frame.addScriptTag({ path: sweetAlertFile})
-      })
-      pg.on('framenavigated', async (frame) => {
-        await frame.addScriptTag({ path: sweetAlertFile})
-      })
-    })
-
+  browser.contexts().forEach(browserContext => {
     browserContext.on('requestfinished', async(request) => {
       const data = await buildData(request)
       // console.log(">>" + JSON.stringify(data))
       if (data) {
         upload(data).then(async res => {
           console.log('-----', await res.text())
-        }).catch(err => {
-          // console.log('-----', err)
-          // notifyApiResponseError(err.message)
+        }).catch(async err => {
+          console.log('-----', err.message)
+          const p = request.frame().page()
+          // notifyApiResponseError(p, err.message)
+          await checkSwalAndInit(page, sweetAlertFile)
+          try {
+            tip(p)
+          } catch(e) {
+
+          }
         })
       }
     })
@@ -73,29 +59,66 @@ const cdp = async() => {
       if (data) {
         upload(data).then(res => {
           console.log('-----', res)
-        }).catch(err => {
-          // console.log('-----', err)
-          // notifyApiResponseError(err.message)
+        }).catch(async err => {
+          console.log(err.message)
+          console.log('-----', err.message)
+          const p = await request.frame().page()
+          await checkSwalAndInit(page, sweetAlertFile)
+          try{
+            tip(p)
+          } catch(e) {
+
+          }
         })
       }
     })
   })
   
-  const page = await browser.newPage()
   await page.goto("https://idiot-alex.github.io/api-gen/")
 
-  if (!await page.evaluate(() => ('Swal' in window))) {
-    await page.addScriptTag({path: sweetAlertFile})
+  // await checkSwalAndInit(page, sweetAlertFile)
+  // tip(page)
+}
+
+const checkSwalAndInit = async (page, scriptFile) => {
+  let flag = await page.evaluate(() => ('Swal' in window))
+  if (!flag) {
+    await page.addScriptTag({path: scriptFile})
   }
-  // execPageScript(page, sweetAlertFile)
+  flag = await page.evaluate(() => ('Swal' in window))
+  Promise.resolve(flag)
+}
+
+const tip = async (page) => {
+  try {
+    
   await page.evaluate(() => {
-    Swal.fire({
-      title: '操作成功',
-      icon: 'success',
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
       timer: 3000,
-      showConfirmButton: false
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
     })
+    
+    Toast.fire({
+      icon: 'error',
+      title: 'Signed in successfully'
+    })
+    // Swal.fire({
+    //   title: '操作成功',
+    //   icon: 'success',
+    //   timer: 3000,
+    //   showConfirmButton: false
+    // })
   })
+} catch(e) {
+
+}
 }
 
 const buildData = async(request) => {
