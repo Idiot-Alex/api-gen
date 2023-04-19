@@ -10,23 +10,39 @@ const checkSwalAndInitSwal = async (page) => {
   return Promise.resolve(flag)
 }
 
+/**
+ * execFunc
+ * @param {*} page 
+ * @param {*} func 
+ * @returns 
+ */
 export function execFunc(page, func) {
-  checkSwalAndInitSwal(page).then(async res => {
-    if (!res) {
-      return
-    }
-    // exec func
-    try {
-      func()
-    } catch(err) {
-      console.error('function exec error: ', err.message)
-    }
+  return new Promise((resolve, reject) => {
+    checkSwalAndInitSwal(page).then(async res => {
+      if (!res) {
+        return
+      }
+      // exec func
+      try {
+        const res = await func()
+        resolve(res)
+      } catch(err) {
+        console.error('function exec error: ', err.message)
+        reject(err)
+      }
+    })
   })
 }
 
-export function toast(page, message) {
+/**
+ * toast
+ * @param {*} page 
+ * @param {*} icon 'success' 'error' ...
+ * @param {*} message 
+ */
+export async function toast(page, icon, message) {
   const func = async () => { 
-    await page.evaluate((msg) => {
+    await page.evaluate(({icon, message}) => {
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -38,42 +54,16 @@ export function toast(page, message) {
           toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
       })
-      
       Toast.fire({
-        icon: 'error',
-        title: msg
+        icon: icon,
+        title: message
       })
-    }, message)
-  }
-  execFunc(page, func)
-}
+    }, {icon, message})
 
-export function initDialog(page) {
-  const func = async () => {
-    await page.evaluate(() => {
-      let timerInterval
-      Swal.fire({
-        title: 'Auto close alert!',
-        html: 'I will close in <b></b> milliseconds.',
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: () => {
-          Swal.showLoading()
-          const b = Swal.getHtmlContainer().querySelector('b')
-          timerInterval = setInterval(() => {
-            b.textContent = Swal.getTimerLeft()
-          }, 100)
-        },
-        willClose: () => {
-          clearInterval(timerInterval)
-        }
-      }).then((result) => {
-        /* Read more about handling dismissals below */
-        if (result.dismiss === Swal.DismissReason.timer) {
-          console.log('I was closed by the timer')
-        }
-      })
-    })
+    return Promise.resolve(true)
   }
-  execFunc(page, func)
+
+  const res = await execFunc(page, func)
+
+  return Promise.resolve(res)
 }

@@ -19,20 +19,19 @@ const cdp = async() => {
   await page.goto("https://idiot-alex.github.io/api-gen/")
 
   // 加载配置
-  const configList = await initConfig(page)
+  const res = await initConfig(page)
 
-  return Promise.resolve({ browser, configList })
+  uploadConfig(browser, res.data || [])
 }
 
 /**
  * 初始化配置信息
  * @param {*} page 
  */
-const initConfig = (page) => {
-  let configList = []
+const initConfig = async (page) => {
   // 弹出提示信息框
   const func = async () => {
-    page.evaluate(() => {
+    await page.evaluate(() => {
       Swal.fire({
         allowOutsideClick: false,
         title: '初始化配置',
@@ -41,27 +40,30 @@ const initConfig = (page) => {
           Swal.showLoading()
         }
       })
-    }).then(() => {
-      setTimeout(() => {
+    })
+    return new Promise((resolve) => {
+      setTimeout(async() => {
         // 请求接口
-        health().then(() => {
-          loadConfig().then(res => {
-            toast(page, '初始化服务端配置信息成功')
-            // 读取配置
-            configList = res.data
-          }).catch(err => {
-            console.error('loadConfig error: ', err.message)
-            toast(page, '初始化服务端配置信息失败')
-          })
-        }).catch(err => {
-          console.error('health error: ', err.message)
-          toast(page, '初始化服务端配置信息失败')
-        })
+        let res = await health()
+        if (!res.ok()) {
+          toast(page, 'error', '初始化服务端配置信息失败')
+          return
+        }
+        // 读取配置
+        res = await loadConfig()
+        if (!res.ok()) {
+          toast(page, 'error', '初始化服务端配置信息失败')
+          return
+        }
+        toast(page, 'success', '初始化服务端配置信息成功')
+        // 处理数据
+        const jsonData = await res.json()
+        resolve(jsonData)
       }, 1500)
     })
   }
-  execFunc(page, func)
-  return Promise.resolve(configList)
+  const res = await execFunc(page, func)
+  return Promise.resolve(res)
 }
 
 const buildData = async(request) => {
@@ -109,14 +111,29 @@ const buildData = async(request) => {
   return data
 }
 
-const uploadConfig = (browser) => {
+const processDataAndConfigs = (data, configs) => {
+  if (!data) {
+    return false
+  }
+  // 遍历 configs
+  configs.forEach(config => {
+    // client_exclude_urlxxx
+    if (config.paramKey.indexOf('client_exclude_url') !== -1) {
+      return data.url.indexOf(config.paramValue) === -1
+    }
+  })
+  return true
+}
+
+const uploadConfig = (browser, configs) => {
   browser.contexts().forEach(browserContext => {
     browserContext.on('requestfinished', async(request) => {
       const data = await buildData(request)
-      // console.log(">>" + JSON.stringify(data))
-      if (data) {
-        upload(data).then(async res => {
-          console.log('-----', await res.text())
+
+      // 处理 data 和 configs
+      if (processDataAndConfigs(data, configs)) {
+         upload(data).then(async res => {
+          console.log('-----url: ', data.url, await res.text())
         }).catch(async err => {
           console.log('--requestfinished error: ', err.message)
         })
@@ -124,8 +141,9 @@ const uploadConfig = (browser) => {
     })
     browserContext.on('requestfailed', async(request) => {
       const data = await buildData(request)
-      // console.log("<<" + JSON.stringify(data))
-      if (data) {
+
+      // 处理 data 和 configs
+      if (processDataAndConfigs(data, configs)) {
         upload(data).then(res => {
           console.log('-----', res)
         }).catch(async err => {
@@ -139,10 +157,7 @@ const uploadConfig = (browser) => {
 
 async function start() {
   await app()
-  cdp().then(({browser, configList}) => {
-    console.log(configList)
-    uploadConfig(browser)
-  })
+  await cdp()
 }
 
 export { start }
