@@ -21,4 +21,10 @@ public class SysSysConfigServiceTest extends ApplicationTests{
         boolean flag = sysConfigService.saveOrUpdate(sysConfig);
         log.info("insert config: {}", flag);
     }
+
+    @Test
+    public void testListByKey() {
+        String prefix = "client_";
+        log.info("list config: {}", sysConfigService.listByKey(prefix));
+    }
 }

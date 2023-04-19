@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/w/config")
-public class ConfigController {
+public class SysConfigController {
 
     @Resource
     private SysConfigService sysConfigService;

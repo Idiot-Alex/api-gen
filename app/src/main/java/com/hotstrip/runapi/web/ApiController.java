@@ -35,7 +35,7 @@ public class ApiController {
         Assert.notNull(apiDto, "apiDto is null");
         Assert.notNull(apiDto.getRequest(), "param request is null");
         Assert.notNull(apiDto.getRequest().getResourceType(), "param request.resourceType is null");
-        log.info(apiLogMapstruct.dtoToModel(apiDto).toString());
+        log.debug(apiLogMapstruct.dtoToModel(apiDto).toString());
 
         String resourceType = apiDto.getRequest().getResourceType();
         // 判断 resourceType 是否需要记录
@@ -55,6 +55,7 @@ public class ApiController {
     // 判断程序是否运行的接口
     @PostMapping("/health")
     public R isRunning() {
+        log.info("health check...ok");
         return R.ok();
     }
 
