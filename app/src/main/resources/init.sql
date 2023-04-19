@@ -1,6 +1,6 @@
 -- api log table
 create table if not exists `PUBLIC`.`api_log`(
-    `id` bigint not null primary key ,
+    `id` bigint not null primary key,
     `url` CLOB not null,
     `host` varchar(255) null,
     `site` varchar(255) null,
@@ -21,11 +21,11 @@ create table if not exists `PUBLIC`.`api_log`(
     `create_time` timestamp null
 );
 
--- config table
-create table if not exists `PUBLIC`.`config`(
-    `id` bigint not null primary key ,
-    `name` varchar(255) not null,
-    `value` CLOB null,
+-- sysConfig table
+create table if not exists `PUBLIC`.`sys_config`(
+    `id` bigint not null primary key,
+    `param_key` varchar(255) not null,
+    `param_value` CLOB null,
     `description` varchar(255) null,
     `create_time` timestamp null
 );

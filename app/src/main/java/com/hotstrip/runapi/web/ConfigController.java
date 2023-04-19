@@ -1,8 +1,8 @@
 package com.hotstrip.runapi.web;
 
-import com.hotstrip.runapi.domain.model.Config;
+import com.hotstrip.runapi.domain.model.SysConfig;
 import com.hotstrip.runapi.domain.model.R;
-import com.hotstrip.runapi.domain.service.ConfigService;
+import com.hotstrip.runapi.domain.service.SysConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,7 @@ import java.util.List;
 public class ConfigController {
 
     @Resource
-    private ConfigService configService;
+    private SysConfigService sysConfigService;
 
     /**
      * 从数据库中加载配置信息接口
@@ -31,7 +31,7 @@ public class ConfigController {
     @PostMapping("/load")
     public R loadConfig() {
         String prefix = "client_";
-        List<Config> configList = configService.listByName(prefix);
-        return R.okData(configList);
+        List<SysConfig> sysConfigList = sysConfigService.listByKey(prefix);
+        return R.okData(sysConfigList);
     }
 }

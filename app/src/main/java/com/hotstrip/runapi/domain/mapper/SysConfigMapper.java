@@ -2,12 +2,12 @@ package com.hotstrip.runapi.domain.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hotstrip.runapi.domain.model.Config;
+import com.hotstrip.runapi.domain.model.SysConfig;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
-public interface ConfigMapper extends BaseMapper<Config> {
+public interface SysConfigMapper extends BaseMapper<SysConfig> {
 
-    Page<Config> listPage(Page page, @Param("info") Config info);
+    Page<SysConfig> listPage(Page page, @Param("info") SysConfig info);
 }

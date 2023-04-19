@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 
@@ -15,12 +12,13 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 @ToString
-@TableName("config")
-public class Config {
+@TableName("sys_config")
+@Builder
+public class SysConfig {
     @TableId(type = IdType.INPUT)
     private Long id;
-    private String name;
-    private String value;
+    private String paramKey;
+    private String paramValue;
     private String description;
     private Date createTime;
 
