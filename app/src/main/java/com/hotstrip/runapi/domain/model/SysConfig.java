@@ -19,6 +19,7 @@ public class SysConfig {
     private Long id;
     private String paramKey;
     private String paramValue;
+    private String paramType;
     private String description;
     private Date createTime;
 

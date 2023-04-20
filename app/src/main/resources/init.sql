@@ -26,6 +26,7 @@ create table if not exists `PUBLIC`.`sys_config`(
     `id` bigint not null primary key,
     `param_key` varchar(255) not null,
     `param_value` CLOB null,
+    `param_type` varchar(255) null,
     `description` varchar(255) null,
     `create_time` timestamp null
 );
