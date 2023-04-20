@@ -1,5 +1,5 @@
 import { chromium } from 'playwright-chromium'
-import { health, loadConfig, upload } from './api/api.js'
+import { health, loadClientConfig, upload } from './api/api.js'
 import { execFunc, toast } from './notify.js'
 
 const app = async() => {
@@ -51,7 +51,7 @@ const initConfig = async (page) => {
             return
           }
           // 读取配置
-          res = await loadConfig()
+          res = await loadClientConfig()
           if (!res.ok()) {
             toast(page, 'error', '初始化服务端配置信息失败')
             return

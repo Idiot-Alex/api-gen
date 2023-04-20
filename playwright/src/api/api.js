@@ -18,6 +18,6 @@ export async function upload(data) {
 }
 
 // load config
-export async function loadConfig() {
-  return (await apiReqCtx()).post('/w/config/load')
+export async function loadClientConfig() {
+  return (await apiReqCtx()).post('/w/config/load-client')
 }
