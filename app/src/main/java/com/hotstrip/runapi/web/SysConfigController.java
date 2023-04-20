@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/w/config")
+@RequestMapping("/w/sys-config")
 public class SysConfigController {
 
     @Resource
