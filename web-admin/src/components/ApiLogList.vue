@@ -3,7 +3,6 @@ import { onMounted, computed, reactive, ref, watch } from 'vue'
 import { list, del } from '~/api/api-log'
 import { formatBytes, calcHeight, formatDateTime } from '~/utils/util'
 import { MyAxiosResponse } from '~/utils/types'
-import { AxiosResponse } from 'axios'
 
 const formData = reactive({
   url: '',
@@ -26,6 +25,11 @@ const formInline = ref()
 const pagination = ref()
 const tableHeight = ref('300px')
 const tempData = ref({
+  url: '',
+  method: '',
+  resourceType: '',
+  status: '',
+  createTime: '',
   requestHeaders: '',
   responseHeaders: ''
 })

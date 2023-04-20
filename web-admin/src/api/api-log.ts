@@ -9,18 +9,18 @@ import { MyAxiosResponse } from '~/utils/types'
  * } params 
  * @returns 
  */
-export function list(params: Object) {
+export function list(params: Object): Promise<MyAxiosResponse> {
   return axios.post('/w/api-log/list', {
     data: params
   })
 }
 
 // delete by id
-export function del(id: string) {
-  return axios.post<MyAxiosResponse>(`/w/api-log/delete/${id}`)
+export function del(id: string): Promise<MyAxiosResponse> {
+  return axios.post(`/w/api-log/delete/${id}`)
 }
 
 // statistics
-export function statistics() {
-  return axios.post<MyAxiosResponse>('/w/api-log/statistics')
+export function statistics(): Promise<MyAxiosResponse> {
+  return axios.post('/w/api-log/statistics')
 }
