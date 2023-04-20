@@ -44,21 +44,26 @@ const initConfig = async (page) => {
     return new Promise((resolve) => {
       setTimeout(async() => {
         // 请求接口
-        let res = await health()
-        if (!res.ok()) {
+        try {
+          let res = await health()
+          if (!res.ok()) {
+            toast(page, 'error', '初始化服务端配置信息失败')
+            return
+          }
+          // 读取配置
+          res = await loadConfig()
+          if (!res.ok()) {
+            toast(page, 'error', '初始化服务端配置信息失败')
+            return
+          }
+          toast(page, 'success', '初始化服务端配置信息成功')
+          // 处理数据
+          const jsonData = await res.json()
+          resolve(jsonData)
+        } catch(err) {
           toast(page, 'error', '初始化服务端配置信息失败')
-          return
+          resolve({})
         }
-        // 读取配置
-        res = await loadConfig()
-        if (!res.ok()) {
-          toast(page, 'error', '初始化服务端配置信息失败')
-          return
-        }
-        toast(page, 'success', '初始化服务端配置信息成功')
-        // 处理数据
-        const jsonData = await res.json()
-        resolve(jsonData)
       }, 1500)
     })
   }
@@ -117,9 +122,27 @@ const processDataAndConfigs = (data, configs) => {
   }
   // 遍历 configs
   configs.forEach(config => {
+    let dataValue
+    // process paramType
+    switch (config.paramType) {
+      case 'object':
+      case 'array':
+        dataValue = JSON.parse(config.paramValue)
+        break;
+      case 'string':
+      default:
+        dataValue = config.paramValue
+        break;
+    }
     // client_exclude_urlxxx
     if (config.paramKey.indexOf('client_exclude_url') !== -1) {
-      return data.url.indexOf(config.paramValue) === -1
+      if (typeof dataValue === 'string') {
+        return data.url.indexOf(config.paramValue) === -1
+      } else if (Array.isArray(dataValue)) {
+        const arr = dataValue.filter(val => data.url.indexOf(val) !== -1)
+        return arr.length === 0
+      }
+      return true
     }
   })
   return true
