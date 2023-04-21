@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FormInstance, FormRules } from 'element-plus';
+import { FormInstance, FormRules } from 'element-plus'
 import { onMounted, reactive, ref, watch } from 'vue'
 import { list, save, del } from '~/api/sys-config'
 import { MyAxiosResponse } from '~/utils/types'
@@ -118,8 +118,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       <el-table-column fixed prop="paramKey" label="参数名称" show-overflow-tooltip width="150" />
       <el-table-column prop="paramValue" label="参数值" min-width="100" />
       <el-table-column prop="paramType" label="参数类型" width="80" >
-        <template #default="{row}">
-          <el-tag type="info">{{ row.paramType }}</el-tag>
+        <template #default="{ row }">
+          <ElTag type="info">{{ row.paramType }}</ElTag>
         </template>
       </el-table-column>
       <el-table-column prop="description" label="描述信息" width="200" />

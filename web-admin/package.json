@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "@iconify-json/ep": "^1.1.4",
-    "@types/axios": "^0.14.0",
     "@types/node": "^18.14.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "sass": "^1.52.1",
