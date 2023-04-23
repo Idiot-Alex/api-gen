@@ -40,6 +40,14 @@ const onSubmit = () => {
 }
 
 const handleAdd = () => {
+  Object.assign(ruleForm, {
+    id: '',
+    idStr: '',
+    paramKey: '',
+    paramType: '',
+    paramValue: '',
+    description: '',
+  })
   drawerVisible.value = true
 }
 
@@ -76,7 +84,7 @@ const ruleForm = reactive({
 const rules = reactive<FormRules>({
   paramKey: [
     { required: true, message: '请输入参数名称', trigger: 'blur' },
-    { min: 3, max: 20, message: '参数名称长度为 3 - 20', trigger: 'blur' },
+    { min: 3, max: 50, message: '参数名称长度为 3 - 50', trigger: 'blur' },
   ],
   paramType: [
     { required: true, message: '请选择参数类型', trigger: 'change' },
@@ -118,7 +126,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       if (!checkParamValue(ruleForm.paramValue, ruleForm.paramType)) {
         ElMessage({
           message: '参数值与参数类型不匹配',
-          grouping: true,
           type: 'error',
         })
         return
@@ -126,8 +133,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       // submit
       save(ruleForm).then((res: MyAxiosResponse) => {
         if (res.code === 0) {
-          drawerVisible.value = false
           Object.assign(ruleForm, {})
+          drawerVisible.value = false
           loadData()
         }
       })
