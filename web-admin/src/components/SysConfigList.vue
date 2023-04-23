@@ -133,7 +133,14 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       // submit
       save(ruleForm).then((res: MyAxiosResponse) => {
         if (res.code === 0) {
-          Object.assign(ruleForm, {})
+          Object.assign(ruleForm, {
+            id: '',
+            idStr: '',
+            paramKey: '',
+            paramType: '',
+            paramValue: '',
+            description: '',
+          })
           drawerVisible.value = false
           loadData()
         }
