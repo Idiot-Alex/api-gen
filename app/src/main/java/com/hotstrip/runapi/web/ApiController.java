@@ -47,7 +47,7 @@ public class ApiController {
         // 判断 resourceType 是否正常
         if (!ResourceTypeEnum.isExistType(resourceType)) {
             log.error("resourceType is not exist, resourceType: {}", resourceType);
-            return R.error();
+            return R.errorMsg(String.format("resourceType %s is not exist", resourceType));
         }
 
         // 判断 resourceType 是否需要记录
