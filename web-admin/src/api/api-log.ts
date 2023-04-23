@@ -11,7 +11,7 @@ import { MyAxiosResponse } from '~/utils/types'
  */
 export function list(params: Object): Promise<MyAxiosResponse> {
   return axios.post('/w/api-log/list', {
-    data: params
+    ...params
   })
 }
 

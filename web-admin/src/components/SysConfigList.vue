@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FormInstance, FormRules } from 'element-plus'
+import { ElMessage, FormInstance, FormRules } from 'element-plus'
 import { onMounted, reactive, ref, watch } from 'vue'
 import { list, save, del } from '~/api/sys-config'
 import { MyAxiosResponse } from '~/utils/types'
@@ -40,10 +40,6 @@ const onSubmit = () => {
 }
 
 const handleAdd = () => {
-  drawerVisible.value = true
-}
-
-const handleEdit = (row: Object) => {
   drawerVisible.value = true
 }
 
@@ -90,13 +86,51 @@ const rules = reactive<FormRules>({
   ],
 })
 
+const handleEdit = (row: Object) => {
+  Object.assign(ruleForm, row)
+  drawerVisible.value = true
+}
+
+// check paramValue with paramType
+const checkParamValue = (value: string, type: string) => {
+  // string
+  if (type === 'string') {
+    return typeof value === 'string'
+  }
+  try {
+    const obj = JSON.parse(value)
+    // array
+    if (type === 'array') {
+      return Array.isArray(obj)
+    }
+    // object
+    return typeof obj === 'object'
+  } catch (e) {
+    return false
+  }
+}
+
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log('submit!')
-    } else {
-      console.log('error submit!', fields)
+      // check paramValue
+      if (!checkParamValue(ruleForm.paramValue, ruleForm.paramType)) {
+        ElMessage({
+          message: '参数值与参数类型不匹配',
+          grouping: true,
+          type: 'error',
+        })
+        return
+      }
+      // submit
+      save(ruleForm).then((res: MyAxiosResponse) => {
+        if (res.code === 0) {
+          drawerVisible.value = false
+          Object.assign(ruleForm, {})
+          loadData()
+        }
+      })
     }
   })
 }

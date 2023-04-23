@@ -11,7 +11,7 @@ import { MyAxiosResponse } from '~/utils/types'
  */
 export function list(params: Object): Promise<MyAxiosResponse> {
   return axios.post('/w/sys-config/list', {
-    data: params
+    ...params
   })
 }
 
@@ -23,6 +23,6 @@ export function del(id: string): Promise<MyAxiosResponse> {
 // save
 export function save(params: Object): Promise<MyAxiosResponse> {
   return axios.post('/w/sys-config/save', {
-    data: params
+    ...params
   })
 }
