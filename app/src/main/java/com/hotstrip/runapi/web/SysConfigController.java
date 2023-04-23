@@ -1,5 +1,6 @@
 package com.hotstrip.runapi.web;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hotstrip.runapi.config.snowflake.SnowFlakeTemplate;
 import com.hotstrip.runapi.domain.model.R;
@@ -68,9 +69,11 @@ public class SysConfigController {
         Assert.notNull(info.getParamValue(), "paramValue must not be null");
         Assert.notNull(info.getParamType(), "paramType must not be null");
 
-        if (info.getId() == null) {
+        if (info.getId() == null && StrUtil.isEmpty(info.getIdStr())) {
             info.setId(snowFlakeTemplate.getIdLong());
             info.setCreateTime(new Date());
+        } else {
+            info.setId(Long.parseLong(info.getIdStr()));
         }
         boolean flag = sysConfigService.saveOrUpdate(info);
         if (!flag) {
