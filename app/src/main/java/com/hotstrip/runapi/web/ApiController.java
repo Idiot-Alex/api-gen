@@ -3,8 +3,11 @@ package com.hotstrip.runapi.web;
 import com.hotstrip.runapi.domain.enums.ResourceTypeEnum;
 import com.hotstrip.runapi.domain.mapstruct.ApiLogMapstruct;
 import com.hotstrip.runapi.domain.model.R;
+import com.hotstrip.runapi.domain.model.SysConfig;
 import com.hotstrip.runapi.domain.model.dto.ApiDto;
 import com.hotstrip.runapi.domain.service.ApiLogService;
+import com.hotstrip.runapi.domain.service.SysConfigService;
+import com.hotstrip.runapi.utils.JacksonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * api controller
@@ -28,6 +32,8 @@ public class ApiController {
     private ApiLogService apiLogService;
     @Resource
     private ApiLogMapstruct apiLogMapstruct;
+    @Resource
+    private SysConfigService sysConfigService;
 
     @PostMapping("/upload")
     public R upload(@RequestBody ApiDto apiDto) {
@@ -38,18 +44,47 @@ public class ApiController {
         log.debug(apiLogMapstruct.dtoToModel(apiDto).toString());
 
         String resourceType = apiDto.getRequest().getResourceType();
-        // 判断 resourceType 是否需要记录
+        // 判断 resourceType 是否正常
         if (!ResourceTypeEnum.isExistType(resourceType)) {
             log.error("resourceType is not exist, resourceType: {}", resourceType);
             return R.error();
         }
 
-        // 检查配置信息中需要记录的 resourceType
-        // TODO
+        // 判断 resourceType 是否需要记录
+        if (!checkResourceType(resourceType)) {
+            log.warn("resourceType is not need to record, resourceType: {}", resourceType);
+        } else {
+            // 记录到数据库
+            apiLogService.insert(apiLogMapstruct.dtoToModel(apiDto));
+        }
 
-        // 记录到数据库
-        apiLogService.insert(apiLogMapstruct.dtoToModel(apiDto));
         return R.ok();
+    }
+
+    private boolean checkResourceType(String resourceType) {
+        boolean flag = false;
+        // 检查配置信息中需要记录的 resourceType
+        List<SysConfig> list = sysConfigService.listByKey("server_include_resource_type");
+        for(SysConfig sysConfig : list) {
+            // string
+            if ("string".equals(sysConfig.getParamType())) {
+                if (resourceType.equals(sysConfig.getParamValue())) {
+                    flag = true;
+                }
+            }
+            // array
+            if ("array".equals(sysConfig.getParamType())) {
+                List<String> resourceTypes = JacksonUtil.toArray(sysConfig.getParamValue(), String.class);
+                if (resourceTypes.contains(resourceType)) {
+                    flag = true;
+                }
+            }
+
+            if (flag) {
+                return flag;
+            }
+        }
+        return flag;
     }
 
     // 判断程序是否运行的接口
