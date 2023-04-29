@@ -243,7 +243,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 </template>
 
 <style>
-.api-log-detail-drawer :deep(.el-drawer__header) {
+.api-log-detail-drawer .ep-drawer__header {
   margin-bottom: 0;
 }
 </style>

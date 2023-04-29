@@ -242,7 +242,7 @@ const resHeaders = computed(() => {
 </template>
 
 <style>
-.api-log-detail-drawer :deep(.el-drawer__header) {
-  margin-bottom: 0;
+.api-log-detail-drawer .ep-drawer__header {
+  margin-bottom: 0px;
 }
 </style>
