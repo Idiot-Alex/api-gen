@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { onMounted, computed, reactive, ref, watch } from 'vue'
-import { list, del } from '~/api/api-log'
+import { list, del, delBatch } from '~/api/api-log'
 import { formatBytes, calcHeight, formatDateTime } from '~/utils/util'
 import { MyAxiosResponse } from '~/utils/types'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const formData = reactive({
   url: '',
@@ -18,6 +19,7 @@ watch(formData, (newVal) => {
   tableParams.url = newVal.url
 })
 
+const apiLogTable = ref<InstanceType<any>>()
 const loading = ref(false)
 const tableData = ref([])
 const tabledDataTotal = ref(0)
@@ -64,6 +66,44 @@ const onSubmit = () => {
   loadData()
 }
 
+const handleDeleteBatch = () => {
+  const rows = apiLogTable.value.getSelectionRows() || []
+  const ids = rows.map((row:any) => row.idStr)
+  // 判断 ids 长度
+  if (ids.length === 0) {
+    ElMessage({
+      type: 'warning',
+      message: '请至少选择一条数据',
+    })
+    return
+  }
+  ElMessageBox.confirm(
+    '是否需要删除已经选择的数据?',
+    'Warning',
+    {
+      confirmButtonText: '确认',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  ).then(() => {
+    // 请求批量删除接口
+    delBatch(ids).then((res: MyAxiosResponse) => {
+      ElMessage({
+        type: res.code === 0 ? 'success' : 'error',
+        message: res.msg,
+      })
+      if (res.code === 0) {
+        loadData()
+      }
+    })
+  }).catch(() => {
+    ElMessage({
+      type: 'info',
+      message: '取消删除',
+    })
+  })
+}
+
 const handleDelete = (id: string) => {
   del(id).then((res: MyAxiosResponse) => {
     if (res.code === 0) {
@@ -104,11 +144,13 @@ const resHeaders = computed(() => {
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="danger" @click="handleDeleteBatch">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-divider class="m-0!" />
-    <el-table v-loading="loading" :data="tableData" :height="tableHeight">
-      <el-table-column fixed prop="url" label="请求地址" show-overflow-tooltip min-width="100" />
+    <el-table ref="apiLogTable" v-loading="loading" :data="tableData" :height="tableHeight">
+      <el-table-column fixed prop="id" type="selection" width="55" />
+      <el-table-column prop="url" label="请求地址" show-overflow-tooltip min-width="100" />
       <el-table-column prop="method" label="请求方式" width="80">
         <template #default="{row}">
         <el-tag v-if="row.method === 'GET'">{{ row.method }}</el-tag>
