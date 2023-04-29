@@ -52,8 +52,26 @@ public class ApiLogController {
     @PostMapping("/delete/{id}")
     public R delete(@PathVariable("id") Long id) {
         log.info("delete api log by id...id: {}", id);
-        apiLogService.removeById(id);
-        return R.ok();
+        boolean flag = apiLogService.removeById(id);
+        if (!flag) {
+            return R.errorMsg("删除记录失败");
+        }
+        return R.okMsg("删除记录成功");
+    }
+
+    /**
+     * delete by ids
+     * @param ids ids
+     * @return
+     */
+    @PostMapping("/delete-batch")
+    public R deleteBatch(@RequestBody List<String> ids) {
+        log.info("delete api log by ids...ids: {}", ids);
+        boolean flag = apiLogService.removeByIds(ids);
+        if (!flag) {
+            return R.errorMsg("删除记录失败");
+        }
+        return R.okMsg("删除记录成功");
     }
 
     /**
