@@ -7,8 +7,8 @@ const data = ref({
   totalCount: 0,
   hostCount: 0,
   siteCount: 0,
-  hostList: [],
-  siteList: []
+  hostList: [{host: ''}],
+  siteList: [{site: ''}]
 })
 
 const loadData = () => {
@@ -29,16 +29,28 @@ onMounted(() => {
     <el-card class="box-card" mt-5px>
       <el-row>
         <el-col :span="8">
-          <el-statistic title="Api 总数" :value="data.totalCount" />
+          <el-statistic text-center title="Api 总数" :value="data.totalCount" />
         </el-col>
         <el-col :span="8">
-          <el-statistic title="Host 总数" :value="data.hostCount" />
+          <el-statistic text-center title="Host 总数" :value="data.hostCount" />
         </el-col>
         <el-col :span="8">
-          <el-statistic title="Site 总数" :value="data.siteCount" />
+          <el-statistic text-center title="Site 总数" :value="data.siteCount" />
         </el-col>
       </el-row>
     </el-card>
+    <el-row mt-20px :gutter="0">
+      <el-col :span="12">
+        <el-card v-for="item in data.hostList" :key="item.host">
+          {{ item.host }}
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card v-for="item in data.siteList" :key="item.site">
+          {{ item.site }}
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
