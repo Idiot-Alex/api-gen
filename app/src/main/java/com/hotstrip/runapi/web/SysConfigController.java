@@ -50,7 +50,7 @@ public class SysConfigController {
     @PostMapping("/list")
     public R list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                   @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
-                  @RequestBody SysConfig info) {
+                  SysConfig info) {
         log.info("get sys config list...pageNo: {}, pageSize: {}, info: {}", pageNo, pageSize, info);
         Page<SysConfig> page = sysConfigService.listPage(pageNo, pageSize, info);
         return R.okData(page.getRecords())

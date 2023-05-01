@@ -37,7 +37,7 @@ public class ApiLogController {
     @PostMapping("/list")
     public R list(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                   @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize,
-                  @RequestBody ApiLog info) {
+                  ApiLog info) {
         log.info("get api log list...pageNo: {}, pageSize: {}, info: {}", pageNo, pageSize, info);
         Page<ApiLog> page = apiLogService.listPage(pageNo, pageSize, info);
         return R.okData(page.getRecords())
