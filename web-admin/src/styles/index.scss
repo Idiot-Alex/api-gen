@@ -23,3 +23,11 @@ code {
   background-color: var(--ep-color-primary-light-9);
   color: var(--ep-color-primary);
 }
+
+p {
+  display: block;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}

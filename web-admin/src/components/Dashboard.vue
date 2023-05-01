@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
-import { statistics } from '~/api/api-log';
-import { MyAxiosResponse } from '~/utils/types';
+import { onMounted, ref } from 'vue'
+import { statistics } from '~/api/api-log'
+import { MyAxiosResponse } from '~/utils/types'
+import { calcHeight } from '~/utils/util'
+import useClipboard from 'vue-clipboard3'
+import { ElMessage } from 'element-plus'
 
 const data = ref({
   totalCount: 0,
   hostCount: 0,
   siteCount: 0,
-  hostList: [{host: ''}],
-  siteList: [{site: ''}]
+  hostList: [{host: '', count: 0}],
+  siteList: [{site: '', count: 0}]
 })
+const colHeight = ref('300px')
+const statisRef = ref()
 
 const loadData = () => {
   statistics().then((res: MyAxiosResponse) => {
@@ -20,13 +25,24 @@ const loadData = () => {
 }
 
 onMounted(() => {
+  colHeight.value = calcHeight(window.innerHeight, [130, statisRef.value.$el.clientHeight]) + 'px'
   loadData()
 })
+
+const { toClipboard } = useClipboard()
+const copyText = (text: string) => {
+  toClipboard(text).then(() => {
+    ElMessage.success('复制成功')
+  }).catch((err) => {
+    console.log(err)
+    ElMessage.error('复制失败')
+  })
+}
 </script>
 
 <template>
   <div ml-5px m-a>
-    <el-card class="box-card" mt-5px>
+    <el-card ref="statisRef" class="box-card" m-20px>
       <el-row>
         <el-col :span="8">
           <el-statistic text-center title="Api 总数" :value="data.totalCount" />
@@ -39,21 +55,30 @@ onMounted(() => {
         </el-col>
       </el-row>
     </el-card>
-    <el-row mt-20px :gutter="0">
-      <el-col :span="12">
-        <el-card v-for="item in data.hostList" :key="item.host">
-          {{ item.host }}
-        </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card v-for="item in data.siteList" :key="item.site">
-          {{ item.site }}
-        </el-card>
-      </el-col>
-    </el-row>
+    <div m-20px>
+      <el-timeline>
+        <el-timeline-item timestamp="Host 统计（点击可复制）" placement="top">
+          <el-card>
+            <el-badge m-10px v-for="item in data.hostList" :key="item.host" :value="item.count" type="primary">
+              <span>
+                <el-tag @click="copyText(item.host)" cursor-pointer>{{ item.host }}</el-tag>
+              </span>
+            </el-badge>
+          </el-card>
+        </el-timeline-item>
+        <el-timeline-item timestamp="Site 统计（点击可复制）" placement="top">
+          <el-card>
+            <el-badge m-10px v-for="item in data.siteList" :key="item.site" :value="item.count" type="primary">
+              <span>
+                <el-tag @click="copyText(item.site)" cursor-pointer>{{ item.site }}</el-tag>
+              </span>
+            </el-badge>
+          </el-card>
+        </el-timeline-item>
+      </el-timeline>
+    </div>
   </div>
 </template>
 
-<style>
-
+<style scoped>
 </style>
