@@ -12,7 +12,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from '@vue/reactivity';
+import { computed } from '@vue/reactivity'
+import { ElLoading } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMenuStore } from '~/stores/menu'
@@ -40,6 +41,14 @@ const isCollapse = ref(true)
 
 const router = useRouter()
 const toPath = (path: any) => {
+  const loading = ElLoading.service({
+    lock: true,
+    text: 'Loading',
+    background: 'rgba(0, 0, 0, 0.7)',
+  })
+  setTimeout(() => {
+    loading.close()
+  }, 1000)
   menuStore.changeMenuIndex(path)
   router.push({path})
 }
