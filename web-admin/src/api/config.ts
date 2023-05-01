@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import { MyAxiosResponse } from '~/utils/types'
+import qs from 'qs'
 
 const service = axios.create({
   baseURL: 'http://localhost:8080',
@@ -10,6 +11,7 @@ service.interceptors.request.use(
   config => {
     // 在请求发送前可以做一些处理
     // 比如设置请求头、修改请求参数等操作
+    config.data = qs.stringify(config.data)
     return config
   },
   error => {

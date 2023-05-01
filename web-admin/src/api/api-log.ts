@@ -10,9 +10,7 @@ import { MyAxiosResponse } from '~/utils/types'
  * @returns 
  */
 export function list(params: Object): Promise<MyAxiosResponse> {
-  return axios.post('/w/api-log/list', {
-    ...params
-  })
+  return axios.post('/w/api-log/list', {...params})
 }
 
 // delete by id
