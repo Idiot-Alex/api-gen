@@ -31,11 +31,6 @@ const routes: any[] = [
         name: 'sys-config',
         component: () => import('~/components/SysConfigList.vue')
     },
-    {
-        path: '/hello',
-        name: 'hello',
-        component: () => import('../components/HelloWorld.vue')
-    }
 ]
 
 export default createRouter({

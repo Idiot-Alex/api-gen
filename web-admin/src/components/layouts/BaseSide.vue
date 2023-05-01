@@ -34,7 +34,6 @@ const menus = reactive([
   { path: '/dashboard', title: '数据面板', icon: 'Menu' },
   { path: '/api-log-list', title: 'Api 列表', icon: 'Document' },
   { path: '/sys-config-list', title: '系统配置', icon: 'Setting' },
-  { path: '/hello', title: 'Hello', icon: 'User' }
 ])
 
 const isCollapse = ref(true)
