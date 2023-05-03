@@ -113,6 +113,8 @@ const buildData = async(request) => {
       responseHeadersSize: size.responseHeadersSize
     }
   }
+  console.log('======data: ', JSON.stringify(data))
+  console.log('====测试中文字符串')
   return data
 }
 
