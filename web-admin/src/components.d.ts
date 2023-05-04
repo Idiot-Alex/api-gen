@@ -15,6 +15,8 @@ declare module '@vue/runtime-core' {
     BaseSide: typeof import('./components/layouts/BaseSide.vue')['default']
     Dashboard: typeof import('./components/Dashboard.vue')['default']
     ElBadge: typeof import('element-plus/es')['ElBadge']
+    ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
+    ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']

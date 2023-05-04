@@ -14,9 +14,10 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity'
 import { ElLoading } from 'element-plus'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMenuStore } from '~/stores/menu'
+import { menus } from '~/utils/menu'
 
 const route = useRoute()
 const menuStore = useMenuStore()
@@ -28,13 +29,6 @@ const menuIndex = computed(() => {
   }
   return menuStore.menuIndex
 })
-
-const menus = reactive([
-  { path: '/guide', title: '使用说明', icon: 'Location' },
-  { path: '/dashboard', title: '数据面板', icon: 'Menu' },
-  { path: '/api-log-list', title: 'Api 列表', icon: 'Document' },
-  { path: '/sys-config-list', title: '系统配置', icon: 'Setting' },
-])
 
 const isCollapse = ref(true)
 
