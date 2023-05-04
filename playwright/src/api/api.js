@@ -13,7 +13,10 @@ export async function health() {
  */
 export async function upload(data) {
   return (await apiReqCtx()).post('/w/api/upload', {
-    data: data
+    data: data,
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    }
   })
 }
 

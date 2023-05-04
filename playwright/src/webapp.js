@@ -1,13 +1,15 @@
 import { chromium } from 'playwright-chromium'
 import { health, loadClientConfig, upload } from './api/api.js'
 import { execFunc, toast } from './notify.js'
+import iconv from 'iconv-lite'
 
 const app = async() => {
   const browser = await chromium.launch({
     args: [
-      "--remote-debugging-port=9222",
+      '--remote-debugging-port=9222',
     ],
     headless: false,
+    cacheEnabled: false,
   });
 }
 
@@ -15,6 +17,9 @@ const cdp = async() => {
   const browser = await chromium.connectOverCDP('http://127.0.0.1:9222/');
   
   const page = await browser.newPage()
+  await page.setExtraHTTPHeaders({
+    'Cache-Control': 'no-cache',
+  })
   
   await page.goto("https://idiot-alex.github.io/api-gen/")
 
@@ -86,12 +91,12 @@ const buildData = async(request) => {
     if (contentType && (contentType.includes('text/') || contentType === 'application/json')) {
         try {
           text = await response.text();
+          console.log('process response text: ', iconv.decode(Buffer.from(text, 'latin1'), 'iso-8859-1'))
         } catch (error) {
           console.log('process response error: ', contentType, error)
         }
     }
   }
-
   const data = {
     url: request.url(),
     method: request.method(),
@@ -114,7 +119,6 @@ const buildData = async(request) => {
     }
   }
   console.log('======data: ', JSON.stringify(data))
-  console.log('====测试中文字符串')
   return data
 }
 
