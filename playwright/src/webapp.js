@@ -1,7 +1,6 @@
 import { chromium } from 'playwright-chromium'
 import { health, loadClientConfig, upload } from './api/api.js'
 import { execFunc, toast } from './notify.js'
-import iconv from 'iconv-lite'
 
 const app = async() => {
   const browser = await chromium.launch({
@@ -90,8 +89,7 @@ const buildData = async(request) => {
     const contentType = response.headers()['content-type'];
     if (contentType && (contentType.includes('text/') || contentType === 'application/json')) {
         try {
-          text = await response.text();
-          console.log('process response text: ', iconv.decode(Buffer.from(text, 'latin1'), 'iso-8859-1'))
+          text = await response.text()
         } catch (error) {
           console.log('process response error: ', contentType, error)
         }
@@ -118,7 +116,7 @@ const buildData = async(request) => {
       responseHeadersSize: size.responseHeadersSize
     }
   }
-  console.log('======data: ', JSON.stringify(data))
+  console.log('======data: ', data.response.text)
   return data
 }
 
