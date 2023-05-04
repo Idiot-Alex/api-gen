@@ -26,7 +26,8 @@ export function delBatch(ids: any): Promise<MyAxiosResponse> {
       headers: {
         'Content-Type': 'application/json'
       }
-    })
+    }
+  )
 }
 
 // statistics

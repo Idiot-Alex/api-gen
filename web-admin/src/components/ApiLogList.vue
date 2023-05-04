@@ -77,8 +77,7 @@ const handleDeleteBatch = () => {
     })
     return
   }
-  ElMessageBox.confirm(
-    `是否需要删除已经选择的数据？(共计 ${ids.length} 条)`,
+  ElMessageBox.confirm(`是否需要删除已经选择的数据？(共计 ${ids.length} 条)`,
     'Warning',
     {
       confirmButtonText: '确认',

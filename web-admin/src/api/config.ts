@@ -8,13 +8,16 @@ const service = axios.create({
 })
 
 service.interceptors.request.use(
-  config => {
+  (config: any) => {
     // 在请求发送前可以做一些处理
     // 比如设置请求头、修改请求参数等操作
-    config.data = qs.stringify(config.data)
+    const contentType: any = config.headers['Content-Type']
+    if (!contentType || contentType.toLowerCase().includes('www-form-urlencoded')) {
+      config.data = qs.stringify(config.data)
+    }
     return config
   },
-  error => {
+  (error: any) => {
     // 当请求发生错误时可以在这里做一些处理
     return Promise.reject(error)
   }

@@ -14,7 +14,6 @@ onMounted(() => {
 
 watch(route, () => {
   currentPath.value = route.path
-  console.log(currentPath.value)
 })
 
 const menuName = computed(() => {
