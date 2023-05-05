@@ -33,7 +33,8 @@ const tempData = ref({
   status: '',
   createTime: '',
   requestHeaders: '',
-  responseHeaders: ''
+  responseHeaders: '',
+  text: ''
 })
 const drawerVisible = ref(false)
 
@@ -232,6 +233,11 @@ const resHeaders = computed(() => {
           <el-collapse-item title="响应头信息" name="3">
             <p v-for="(v, k) in resHeaders" :key="k" :label="k">
               <span font-800>{{ k }}</span>：<span>{{ v }}</span>
+            </p>
+          </el-collapse-item>
+          <el-collapse-item v-show="tempData.text" title="响应结果" name="4">
+            <p>
+              {{ tempData.text }}
             </p>
           </el-collapse-item>
         </el-collapse>
