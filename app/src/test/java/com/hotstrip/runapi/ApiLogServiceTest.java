@@ -18,6 +18,9 @@ public class ApiLogServiceTest extends ApplicationTests{
     @Test
     public void testList() {
         List<ApiLog> list = apiLogService.list();
+        list.forEach(apiLog -> {
+            log.info("api log: {}", apiLog);
+        });
         log.info("list api log: {}", list);
     }
 }
