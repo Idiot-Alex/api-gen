@@ -16,4 +16,8 @@ public interface ApiLogService extends IService<ApiLog> {
     List<HostCount> listGroupByHost();
 
     List<SiteCount> listGroupBySite();
+
+    List<ApiLog> listBySite(String site);
+
+    List<ApiLog> listByHost(String host);
 }

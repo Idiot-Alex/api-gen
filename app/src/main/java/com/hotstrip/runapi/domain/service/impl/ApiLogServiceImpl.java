@@ -42,4 +42,14 @@ public class ApiLogServiceImpl extends ServiceImpl<ApiLogMapper, ApiLog> impleme
     public List<SiteCount> listGroupBySite() {
         return apiLogMapper.listGroupBySite();
     }
+
+    @Override
+    public List<ApiLog> listBySite(String site) {
+        return apiLogMapper.listBySite(site);
+    }
+
+    @Override
+    public List<ApiLog> listByHost(String host) {
+        return apiLogMapper.listByHost(host);
+    }
 }

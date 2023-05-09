@@ -22,4 +22,10 @@ public interface ApiLogMapper extends BaseMapper<ApiLog> {
 
     @Select("select site, count(*) as count from PUBLIC.api_log group by site")
     List<SiteCount> listGroupBySite();
+
+    @Select("select * from PUBLIC.api_log where site = #{site}")
+    List<ApiLog> listBySite(@Param("site") String site);
+
+    @Select("select * from PUBLIC.api_log where host = #{host}")
+    List<ApiLog> listByHost(@Param("host") String host);
 }
