@@ -22,6 +22,11 @@ const routes: any[] = [
         component: () => import('~/components/ApiLogList.vue')
     },
     {
+        path: '/api-doc',
+        name: 'api-doc',
+        component: () => import('~/components/ApiDocument.vue')
+    },
+    {
         path: '/dashboard',
         name: 'dashboard',
         component: () => import('~/components/Dashboard.vue')

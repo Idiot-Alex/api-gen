@@ -9,6 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ApiDocument: typeof import('./components/ApiDocument.vue')['default']
     ApiList: typeof import('./components/ApiLogList.vue')['default']
     ApiLogList: typeof import('./components/ApiLogList.vue')['default']
     BaseHeader: typeof import('./components/layouts/BaseHeader.vue')['default']

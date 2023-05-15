@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { MyAxiosResponse } from '~/utils/types'
 import qs from 'qs'
+import { ElNotification } from 'element-plus'
 
 const service = axios.create({
   baseURL: 'http://localhost:8080',
@@ -31,7 +32,13 @@ service.interceptors.response.use(
   },
   error => {
     // 当响应发生错误时可以在这里做一些处理
-    console.error(error)
+    const msg = `<strong>${error?.message}</strong></br><span>${error?.config?.baseURL}${error?.config?.url}</span>`
+    ElNotification.error({
+      title: error.name || 'Error',
+      dangerouslyUseHTMLString: true,
+      message: msg,
+      offset: 100,
+    })
     return Promise.reject(error)
   }
 )
