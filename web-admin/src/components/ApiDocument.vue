@@ -7,8 +7,6 @@
     <el-col :span="6">
       <el-menu
         class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose"
       >
         <el-sub-menu index="1">
           <template #title>
