@@ -6,8 +6,7 @@
   <el-row>
     <el-col :span="6">
       <el-menu
-        class="el-menu-vertical-demo"
-      >
+        class="el-menu-vertical-demo">
         <el-sub-menu index="1">
           <template #title>
             <el-icon><location /></el-icon>
