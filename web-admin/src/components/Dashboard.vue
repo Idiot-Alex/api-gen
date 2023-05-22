@@ -10,8 +10,8 @@ const data = ref({
   totalCount: 0,
   hostCount: 0,
   siteCount: 0,
-  hostList: [{host: '', count: 0}],
-  siteList: [{site: '', count: 0}]
+  hostList: [{host: 'no host', count: 0}],
+  siteList: [{site: 'no site', count: 0}]
 })
 const colHeight = ref('300px')
 const statisRef = ref()
@@ -70,7 +70,7 @@ const copyText = (text: string) => {
           <el-card>
             <el-badge m-10px v-for="item in data.siteList" :key="item.site" :value="item.count" type="primary">
               <span>
-                <el-tag @click="copyText(item.site)" cursor-pointer>{{ item.site }}</el-tag>
+                <el-tag v-if="item" @click="copyText(item.site)" cursor-pointer>{{ item.site }}</el-tag>
               </span>
             </el-badge>
           </el-card>
