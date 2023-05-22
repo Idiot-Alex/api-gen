@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FormInstance, FormRules, TabsPaneContext } from 'element-plus'
+import { ElMessage, FormInstance, FormRules, TabsPaneContext } from 'element-plus'
 import { onMounted, reactive, ref } from 'vue'
 import { statistics } from '~/api/api-log'
 import { MyAxiosResponse } from '~/utils/types'
@@ -19,7 +19,20 @@ const loadStatistics = () => {
 onMounted(() => {
   loadStatistics()
 })
-
+const ruleFormRef = ref<FormInstance>()
+const ruleForm = reactive({
+  name: '',
+  description: '',
+})
+const rules = reactive<FormRules>({
+  name: [
+    { required: true, message: '请输入 Api 文档名称', trigger: 'blur' },
+    { min: 3, max: 50, message: '名称长度为 3 - 50', trigger: 'blur' },
+  ],
+  description: [
+    { required: true, message: '请输入描述信息', trigger: 'change' },
+  ],
+})
 const checkList = ref([])
 const tabActive: any = ref('first')
 const handleTab = (tab: TabsPaneContext) => {
@@ -31,28 +44,35 @@ const activeStep = ref(0)
 const handlePrevStep = () => {
   activeStep.value--
 }
-const handleNextStep = () => {
-  activeStep.value++
+const handleNextStep = async() => {
+  if (activeStep.value == 0) {
+    if (!ruleFormRef.value) return
+    await ruleFormRef.value.validate((valid, fields) => {
+      if (!valid) {
+        return
+      } else {
+        activeStep.value++
+      }
+    })
+  } else if (activeStep.value == 1) {
+    if (checkList.value.length == 0) {
+      ElMessage.warning('请至少选择一项 Api')
+      return
+    } else {
+      // submit
+      ElMessage.success('提交成功')
+      setTimeout(() => {
+        drawerVisible.value = false
+      }, 1000)
+    }
+  }
 }
 const drawerVisible = ref(false)
 const handleAdd = () => {
   activeStep.value = 0
   drawerVisible.value = true
 }
-const ruleFormRef = ref<FormInstance>()
-const ruleForm = reactive({
-  name: '',
-  description: '',
-})
-const rules = reactive<FormRules>({
-  paramKey: [
-    { required: true, message: '请输入 Api 文档名称', trigger: 'blur' },
-    { min: 3, max: 50, message: '名称长度为 3 - 50', trigger: 'blur' },
-  ],
-  description: [
-    { required: true, message: '请输入描述信息', trigger: 'change' },
-  ],
-})
+
 
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
@@ -164,7 +184,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
                 </el-card>
               </el-tab-pane>
             </el-tabs>
-            <el-alert :closable="false" :title="`当前已选择 ${checkList.length} 个 Api`" type="warning" />
+            <el-alert :closable="false" :title="`当前已选择 ${checkList.length} 项 Api`" type="warning" />
           </el-form-item>
           <el-form-item>
             <el-button :disabled="activeStep <= 0" type="primary" @click="handlePrevStep">上一步</el-button>
