@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FormInstance, FormRules } from 'element-plus'
+import { FormInstance, FormRules, TabsPaneContext } from 'element-plus'
 import { onMounted, reactive, ref } from 'vue'
 import { statistics } from '~/api/api-log'
 import { MyAxiosResponse } from '~/utils/types'
@@ -20,7 +20,13 @@ onMounted(() => {
   loadStatistics()
 })
 
-const tabActive = ref('first')
+const checkList = ref([])
+const tabActive: any = ref('first')
+const handleTab = (tab: TabsPaneContext) => {
+  console.log(tab)
+  tabActive.value = tab.paneName
+  checkList.value = []
+}
 const activeStep = ref(0)
 const handlePrevStep = () => {
   activeStep.value--
@@ -138,26 +144,27 @@ const submitForm = async (formEl: FormInstance | undefined) => {
             <el-input v-model="ruleForm.description" type="textarea" />
           </el-form-item>
           <el-form-item v-show="activeStep == 1">
-            <el-tabs v-model="tabActive" tab-position="left" class="demo-tabs">
+            <el-tabs v-model="tabActive" mb-10px tab-position="left" @tab-click="handleTab">
               <el-tab-pane label="Host" name="first">
                 <el-card>
                   <el-badge m-10px v-for="item in data.hostList" :key="item.host" :value="item.count" type="info">
-                    <el-checkbox :label="item.host">
-                      <el-tag cursor-pointer>{{ item.host }}</el-tag>
-                    </el-checkbox>
+                    <el-checkbox-group v-model="checkList">
+                      <el-checkbox :label="item.host" border>{{ item.host }}</el-checkbox>
+                    </el-checkbox-group>
                   </el-badge>
                 </el-card>
               </el-tab-pane>
               <el-tab-pane label="Site" name="second">
                 <el-card>
                   <el-badge m-10px v-for="item in data.siteList" :key="item.site" :value="item.count" type="info">
-                    <el-checkbox :label="item.site">
-                      <el-tag cursor-pointer>{{ item.site }}</el-tag>
-                    </el-checkbox>
+                    <el-checkbox-group v-model="checkList">
+                      <el-checkbox :label="item.site" border>{{ item.site }}</el-checkbox>
+                    </el-checkbox-group>
                   </el-badge>
                 </el-card>
               </el-tab-pane>
             </el-tabs>
+            <el-alert :closable="false" :title="`当前已选择 ${checkList.length} 个 Api`" type="warning" />
           </el-form-item>
           <el-form-item>
             <el-button :disabled="activeStep <= 0" type="primary" @click="handlePrevStep">上一步</el-button>
