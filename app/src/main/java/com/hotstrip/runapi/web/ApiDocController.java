@@ -38,6 +38,8 @@ public class ApiDocController {
      */
     @PostMapping("/create")
     public R create(@RequestBody ApiDocDto apiDocDto) {
+        log.info("create doc...name: {}, description: {}, size: {}",
+                apiDocDto.getName(), apiDocDto.getDescription(), apiDocDto.getApiList().size());
         // 检查参数
         Assert.notNull(apiDocDto, "apiDocDto is null");
         ApiDoc apiDoc = apiDocMapstruct.dtoToModel(apiDocDto);
