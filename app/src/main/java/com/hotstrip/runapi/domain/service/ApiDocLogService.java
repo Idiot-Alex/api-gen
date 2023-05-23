@@ -12,4 +12,6 @@ public interface ApiDocLogService extends IService<ApiDocLog> {
     List<ApiDocLog> listBySite(String site);
 
     List<ApiDocLog> listByHost(String host);
+
+    void copyApiLog(Long docId, List<String> apiList);
 }
