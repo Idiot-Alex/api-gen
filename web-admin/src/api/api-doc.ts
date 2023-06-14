@@ -9,5 +9,9 @@ import { MyAxiosResponse } from '~/utils/types'
 export function create(params: Object): Promise<MyAxiosResponse> {
   return axios.post('/w/api-doc/create', {
     ...params
+  }, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
 }

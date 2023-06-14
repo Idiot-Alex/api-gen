@@ -24,5 +24,9 @@ export function del(id: string): Promise<MyAxiosResponse> {
 export function save(params: Object): Promise<MyAxiosResponse> {
   return axios.post('/w/sys-config/save', {
     ...params
+  }, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
 }

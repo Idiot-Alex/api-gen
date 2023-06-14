@@ -2,6 +2,7 @@
 import { ElMessage, FormInstance, FormRules, TabsPaneContext } from 'element-plus'
 import { onMounted, reactive, ref } from 'vue'
 import { statistics } from '~/api/api-log'
+import { create } from '~/api/api-doc'
 import { MyAxiosResponse } from '~/utils/types'
 
 const data = ref({
@@ -23,6 +24,7 @@ const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive({
   name: '',
   description: '',
+  apiList: [],
 })
 const rules = reactive<FormRules>({
   name: [
@@ -60,10 +62,15 @@ const handleNextStep = async() => {
       return
     } else {
       // submit
-      ElMessage.success('提交成功')
-      setTimeout(() => {
-        drawerVisible.value = false
-      }, 1000)
+      ruleForm.apiList = checkList.value
+      create(ruleForm).then((res: MyAxiosResponse) => {
+        if (res.code === 0) {
+          ElMessage.success(res.msg)
+          setTimeout(() => {
+            drawerVisible.value = false
+          }, 800)
+        }
+      })
     }
   }
 }
